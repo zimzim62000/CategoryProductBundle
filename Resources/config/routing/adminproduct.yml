@@ -1,0 +1,30 @@
+zimzim_categoryproduct_product:
+    path:     /
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:index" }
+
+zimzim_categoryproduct_product_show:
+    path:     /{id}/show
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:show" }
+
+zimzim_categoryproduct_product_new:
+    path:     /new
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:new" }
+
+zimzim_categoryproduct_product_create:
+    path:     /create
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:create" }
+    requirements: { _method: post }
+
+zimzim_categoryproduct_product_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:edit" }
+
+zimzim_categoryproduct_product_update:
+    path:     /{id}/update
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:update" }
+    requirements: { _method: post|put }
+
+zimzim_categoryproduct_product_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:delete" }
+    requirements: { _method: post|delete }

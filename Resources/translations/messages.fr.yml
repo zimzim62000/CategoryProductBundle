@@ -1,0 +1,10 @@
+ZIMZIMCategoryProduct:
+    name: "Nom"
+    slug: "Lien"
+    image: "Image"
+    parent: "Parent"
+    button:
+        create: "Créer"
+        update: "Modifier"
+        delete: "Supprimer"
+        show: "Voir"

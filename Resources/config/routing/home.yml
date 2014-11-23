@@ -1,0 +1,5 @@
+zimzim_categoryproduct_home:
+    path:     /
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Home:index"}
+    requirements:
+        _method:  GET

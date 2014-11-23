@@ -1,0 +1,15 @@
+zimzim_categoryproduct_home:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/home.yml"
+    prefix:   /
+
+zimzim_categoryproduct_admincategory:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/admincategory.yml"
+    prefix:   /admin/category/
+
+zimzim_categoryproduct_category:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/category.yml"
+    prefix:   /category/
+
+zimzim_categoryproduct_adminproduct:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/adminproduct.yml"
+    prefix:   /admin/product/

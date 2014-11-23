@@ -1,0 +1,29 @@
+{% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
+
+    {% block title %}
+    {{ 'zimzim_categoryproduct_product.index.title'|trans }}
+    {% endblock title %}
+
+    {% block page %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="text-center headerpagehome">
+                Product creation
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 columns">
+            {{ form(form) }}
+
+                        <div class="row">
+    <div class="small-12 large-4 columns text-center">
+        <a class="tiny button round" href="{{ path('zimzim_categoryproduct_product') }}">
+            {{ 'link.return'|trans }}
+        </a>
+    </div>
+</div>
+        </div>
+    </div>
+    {% endblock %}
+

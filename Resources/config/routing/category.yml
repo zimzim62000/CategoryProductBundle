@@ -1,0 +1,12 @@
+zimzim_categoryproduct_category_listslug:
+    path:     /{slug}/
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Category:listcategorybyslug" }
+    requirements:
+        _method:  GET
+        slug: "[0-9a-z-_]+"
+
+zimzim_categoryproduct_category_listslugnull:
+    path:     /
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Category:listcategorybyslug"}
+    requirements:
+        _method:  GET

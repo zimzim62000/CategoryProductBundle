@@ -1,0 +1,15 @@
+services:
+    zimzim_categoryproduct.form.updatecontentform:
+        class: ZIMZIM\CategoryProductBundle\Form\Update\CategoryContentType
+        arguments: [ ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_update_categorycontenttype }
+    zimzim_categoryproduct.form.categoryproductform:
+        class: ZIMZIM\CategoryProductBundle\Form\CategoryProductType
+        arguments: [ ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_categoryproducttype }
+    zimzim_categoryproduct.form.type.zimzimcollectionformtype:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMCollectionType
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_zimzimcollection }

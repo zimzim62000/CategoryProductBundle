@@ -1,0 +1,78 @@
+{% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
+
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
+
+{% block title %}
+    {{ entity.name }}
+{% endblock title %}
+
+
+{% block page %}
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="text-center headerpagehome">
+                {{ 'admincategory.show.title'|trans({'%name%': entity.name }) }}
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+            <table class="width-100 panel">
+                <tbody>
+                <tr>
+                    <th>{{ 'admincategory.entity.id'|trans}}</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'admincategory.entity.name'|trans}}</th>
+                    <td>{{ entity.name }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'admincategory.entity.title'|trans}}</th>
+                    <td>{{ entity.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'admincategory.entity.desc'|trans}}</th>
+                    <td>{{ entity.description }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'admincategory.entity.content'|trans}}</th>
+                    <td>{{ entity.content }}</td>
+                </tr>
+                {% if entity.parent != null %}
+                <tr>
+                    <th>{{ 'admincategory.entity.parent'|trans}}</th>
+                    <td>{{ entity.parent.name }}</td>
+                </tr>
+                {% endif %}
+                {% if entity.path != null %}
+                    <tr>
+                        <th>{{ 'admincategory.entity.image'|trans}}</th>
+                        <td><img src="/{{ entity.getWebPath }}"/></td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>{{ 'admincategory.entity.updatedat'|trans}}</th>
+                    <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="small-12 large-4 columns text-center">
+                    <a class="tiny button round" href="{{ path('zimzim_categoryproduct_category') }}">
+                        {{ 'button.return'|trans }}
+                    </a>
+                </div>
+                <div class="small-12 large-4 columns text-center">
+                    <a class="tiny button round"
+                       href="{{ path('zimzim_categoryproduct_category_edit', { 'id': entity.id }) }}">
+                        {{ 'button.update'|trans }}
+                    </a>
+                </div>
+                <div class="small-12 large-4 columns text-center">
+                    {{ form(delete_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+category:
+    listid:
+        metatitle: "Categories disponible"
+        metadesc: "Liste des sous catégories"
+admincategory:
+    index:
+        title: "Administration des categories"
+    show:
+        title: "descriptif de la page : %name%"
+    new:
+        title: "Création d'une catégorie"
+    update:
+        title: "Modification de la catégorie : %name%"
+    entity:
+        id: "Id"
+        name: "Nom"
+        title: "Méta title"
+        desc: "Méta description"
+        content: "Contenu"
+        parent: "Parent"
+        image: "Image"
+        updatedat: "Modifier le"
+        products: "Produits"
+home:
+    index:
+        title: "Page de presentation des categories et produits mis en valeur"
+button:
+    create: "Créer"
+    return: "Retour"
+    update: "Modifier"
+    delete: "Supprimer"
