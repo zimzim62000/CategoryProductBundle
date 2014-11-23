@@ -13,6 +13,6 @@
 		"apy/datagrid-bundle": "dev-master"
 	},
 	"autoload": {
-		"psr-4": { "APY\\DataGridBundle\\": "" }
+		"psr-4": { "ZIMZIM\\CategoryProductBundle\\": "" }
 	}
 }
