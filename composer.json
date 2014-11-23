@@ -1,0 +1,23 @@
+{
+	"name": "zimzim62000/categoryproduct-bundle",
+	"description": "Symfony2 Category+Product Bundle",
+	"keywords": ["Symfony", "products", "categories"],
+	"homepage": "https://github.com/zimzim62000/CategoryProductBundle",
+	"type": "symfony-bundle",
+	"license": "MIT",
+	"authors": [{"name": "Zimmmermann Fabien", "email": "zimzim62000@gmail.com"}],
+	"require": {
+		"php": ">=5.3.2",
+		"symfony/symfony": ">=2.0.0",
+		"twig/twig": ">=1.5.0",
+		"apy/datagrid-bundle": "dev-master"
+	},
+	"autoload": {
+		"psr-4": { "APY\\DataGridBundle\\": "" }
+	},
+	"extra": {
+		"branch-alias": {
+		"dev-master": "2.1-dev"
+		}
+	}
+}
