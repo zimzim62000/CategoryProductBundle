@@ -1,13 +1,21 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Form;
+namespace ZIMZIM\CategoryProductBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use ZIMZIM\CategoryProductBundle\Doctrine\ProductManager;
 
 class ProductType extends AbstractType
 {
+    private $productmanager;
+
+    public function  __construct(ProductManager $productmanager)
+    {
+        $this->productmanager = $productmanager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -38,9 +46,8 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'ZIMZIM\CategoryProductBundle\Entity\Product',
+                'data_class' => $this->productmanager->getClassName(),
                 'attr' => array(
-                    'class' => 'zimzim-panel'
                 ),
                 'cascade_validation' => true
             )

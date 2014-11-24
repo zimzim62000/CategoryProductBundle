@@ -1,0 +1,16 @@
+<li class="category-box">
+    <div class="fullfull">
+        <img class="img-medium" src="/{{ child.webpath }}"
+             alt="{{ child.name }} - {{ child.description }}" />
+        <h2 class="text-center title-categorybox nomargin">
+            <a {% if child.slug == "" %}
+                href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
+            {% else %}
+                href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':child.slug}) }}"
+            {% endif %}
+                    >
+                {{ child.name }}
+            </a>
+        </h2>
+    </div>
+</li>

@@ -1,14 +1,23 @@
 services:
-    zimzim_categoryproduct.form.updatecontentform:
-        class: ZIMZIM\CategoryProductBundle\Form\Update\CategoryContentType
-        arguments: [ ]
-        tags:
-            - { name: form.type, alias: zimzim_categoryproductbundle_update_categorycontenttype }
+
     zimzim_categoryproduct.form.categoryproductform:
-        class: ZIMZIM\CategoryProductBundle\Form\CategoryProductType
-        arguments: [ ]
+        class: ZIMZIM\CategoryProductBundle\Form\Type\CategoryProductType
+        arguments: [ @zimzim_categoryproduct_categoryproductmanager ]
         tags:
             - { name: form.type, alias: zimzim_categoryproductbundle_categoryproducttype }
+
+    zimzim_categoryproduct.form.categoryform:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\CategoryType
+        arguments: [ @zimzim_categoryproduct_categorymanager, @zimzim_categoryproduct_categoryproductmanager ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_categorytype }
+
+    zimzim_categoryproduct.form.productform:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ProductType
+        arguments: [ @zimzim_categoryproduct_productmanager ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_producttype }
+
     zimzim_categoryproduct.form.type.zimzimcollectionformtype:
         class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMCollectionType
         tags:

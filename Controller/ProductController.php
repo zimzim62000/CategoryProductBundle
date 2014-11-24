@@ -4,15 +4,13 @@ namespace ZIMZIM\CategoryProductBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use ZIMZIM\CategoryProductBundle\Entity\Product;
-use ZIMZIM\CategoryProductBundle\Form\ProductType;
-
 /**
  * Product controller.
  *
  */
 class ProductController extends MainController
 {
+    const DIR = 'ZIMZIMCategoryProductBundle:Product';
 
     /**
      * Lists all Product entities.
@@ -20,8 +18,11 @@ class ProductController extends MainController
      */
     public function indexAction()
     {
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
+
         $data = array(
-            'entity' => 'ZIMZIMCategoryProductBundle:Product',
+            'manager' => $manager,
+            'dir' => self::DIR,
             'show' => 'zimzim_categoryproduct_product_show',
             'edit' => 'zimzim_categoryproduct_product_edit'
         );
@@ -35,8 +36,10 @@ class ProductController extends MainController
      */
     public function createAction(Request $request)
     {
-        $entity = new Product();
-        $form = $this->createCreateForm($entity);
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
+
+        $entity = $manager->createEntity();
+        $form = $this->createCreateForm($entity, $manager);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -67,10 +70,10 @@ class ProductController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Product $entity)
+    private function createCreateForm($entity, $manager)
     {
         $form = $this->createForm(
-            new ProductType(),
+            $manager->getFormname(),
             $entity,
             array(
                 'action' => $this->generateUrl('zimzim_categoryproduct_product_create'),
@@ -89,8 +92,10 @@ class ProductController extends MainController
      */
     public function newAction()
     {
-        $entity = new Product();
-        $form = $this->createCreateForm($entity);
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
+
+        $entity = $manager->createEntity();
+        $form = $this->createCreateForm($entity, $manager);
 
         return $this->render(
             'ZIMZIMCategoryProductBundle:Product:new.html.twig',
@@ -107,9 +112,9 @@ class ProductController extends MainController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Product')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Product entity.');
@@ -132,15 +137,15 @@ class ProductController extends MainController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Product')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Product entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
@@ -160,10 +165,10 @@ class ProductController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Product $entity)
+    private function createEditForm($entity, $manager)
     {
         $form = $this->createForm(
-            new ProductType(),
+            $manager->getFormname(),
             $entity,
             array(
                 'action' => $this->generateUrl(
@@ -185,16 +190,18 @@ class ProductController extends MainController
      */
     public function updateAction(Request $request, $id)
     {
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
+
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Product')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Product entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $manager);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -225,8 +232,9 @@ class ProductController extends MainController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $manager = $this->container->get('zimzim_categoryproduct_productmanager');
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Product')->find($id);
+            $entity = $manager->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Product entity.');

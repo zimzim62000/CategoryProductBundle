@@ -1,16 +1,27 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Form;
+namespace ZIMZIM\CategoryProductBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use ZIMZIM\CategoryProductBundle\Entity\CategoryRepository;
+use ZIMZIM\CategoryProductBundle\Doctrine\CategoryManager;
+use ZIMZIM\CategoryProductBundle\Doctrine\CategoryProductManager;
 
 class CategoryType extends AbstractType
 {
+
+    private $categoryManager;
+    private $categoryProductManager;
+
+    public function  __construct(CategoryManager $categoryManager, CategoryProductManager $categoryProductManager)
+    {
+        $this->categoryManager = $categoryManager;
+        $this->categoryProductManager = $categoryProductManager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -61,15 +72,16 @@ class CategoryType extends AbstractType
                         return;
                     }
                 }
+                $repository = $this->categoryManager->getRepository();
                 $form->
                 add(
                     'parent',
                     'entity',
                     array(
-                        'class' => 'ZIMZIMCategoryProductBundle:Category',
+                        'class' => $this->categoryManager->getClassName(),
                         'property' => 'indentedTitle',
-                        'query_builder' => function (CategoryRepository $er) use ($id_category) {
-                            $query = $er->createQueryBuilder('c');
+                        'query_builder' => function ($repository) use ($id_category) {
+                            $query = $repository->createQueryBuilder('c');
                             if (isset($id_category)) {
                                 $query->where('c.id <> :category')
                                     ->setParameter('category', $id_category);
@@ -83,12 +95,13 @@ class CategoryType extends AbstractType
                         'translation_domain' => 'ZIMZIMCategoryProduct'
                     )
                 );
+
                 if ($category && $category->getId() !== null) {
                     $form->add(
                         'categoryproducts',
                         'zimzim_categoryproductbundle_zimzimcollection',
                         array(
-                            'type' => 'zimzim_categoryproductbundle_categoryproducttype',
+                            'type' => $this->categoryProductManager->getFormname(),
                             'allow_add' => true,
                             'allow_delete' => true,
                             'by_reference' => true,
@@ -97,13 +110,14 @@ class CategoryType extends AbstractType
                                 'no-label' => 'no-label',
                                 'class' => 'small-block-grid-1 large-block-grid-2 container',
                                 'datachildclass' => 'ulchildren',
-                                'dataaddname' => 'form.cigarettetype.price.dataaddname',
-                                'dataname' => 'form.cigarettetype.price.dataname',
-                                'datadeletename' => 'form.cigarettetype.price.datadeletename'
+                                'dataaddname' => 'form.type.collection.categoryproducts.add',
+                                'dataname' => 'form.type.collection.categoryproducts.name',
+                                'datadeletename' => 'form.type.collection.categoryproducts.delete'
                             )
                         )
                     );
                 }
+
             }
         );
     }
@@ -115,11 +129,8 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'ZIMZIM\CategoryProductBundle\Entity\Category',
-                'attr' => array(
-                    'class' => 'zimzim-panel'
-                ),
-                'cascade_validation' => true
+                'data_class' => $this->categoryManager->getClassName(),
+                'translation_domain' => 'ZIMZIMCategoryProduct'
             )
         );
     }

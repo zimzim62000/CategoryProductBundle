@@ -1,3 +1,4 @@
 imports:
     - { resource: service/validator.yml }
     - { resource: service/form.yml }
+    - { resource: service/manager.yml }

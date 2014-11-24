@@ -25,6 +25,15 @@ class Configuration implements ConfigurationInterface
                 ->integerNode('max_element')
                     ->defaultValue(5)
                 ->end()
+                ->scalarNode('category_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('category_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\CategoryRepository')->end()
+                ->scalarNode('category_form')->defaultValue('zimzim_categoryproductbundle_categorytype')->end()
+                ->scalarNode('categoryproduct_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('categoryproduct_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\CategoryProductRepository')->end()
+                ->scalarNode('categoryproduct_form')->defaultValue('zimzim_categoryproductbundle_categoryproducttype')->end()
+                ->scalarNode('product_class')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('product_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ProductRepository')->end()
+                ->scalarNode('product_form')->defaultValue('zimzim_categoryproductbundle_producttype')->end()
             ->end();
 
         return $treeBuilder;

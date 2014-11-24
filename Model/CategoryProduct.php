@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Entity;
+namespace ZIMZIM\CategoryProductBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * CategoryProduct
  *
- * @ORM\Table(name="default_categoryproduct")
+ * @ORM\MappedSuperclass
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
 class CategoryProduct
@@ -20,25 +20,23 @@ class CategoryProduct
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var Category
      *
      * @Gedmo\SortableGroup
+     * @ORM\Column(name="category", type="integer")
      *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="categoryproducts", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=FALSE)
      **/
-    private $category;
+    protected $category;
 
     /**
      * @var Product
+     * @ORM\Column(name="product", type="integer")
      *
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="categoryproducts", cascade={"persist"})
-     * @ORM\JoinColumn(name="id_product", referencedColumnName="id", nullable=FALSE)
      **/
-    private $product;
+    protected $product;
 
     /**
      * @var integer
@@ -47,7 +45,7 @@ class CategoryProduct
      *
      * @ORM\Column(name="position", type="integer")
      */
-    private $position;
+    protected $position;
 
 
     /**

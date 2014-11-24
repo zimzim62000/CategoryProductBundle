@@ -3,11 +3,8 @@
 namespace ZIMZIM\CategoryProductBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\Request;
 
-use ZIMZIM\CategoryProductBundle\Entity\Category;
-use ZIMZIM\CategoryProductBundle\Form\CategoryType;
 
 /**
  * Category controller.
@@ -15,6 +12,7 @@ use ZIMZIM\CategoryProductBundle\Form\CategoryType;
  */
 class CategoryController extends MainController
 {
+    const DIR = 'ZIMZIMCategoryProductBundle:Category';
 
     /**
      * Lists all Category entities.
@@ -22,8 +20,11 @@ class CategoryController extends MainController
      */
     public function indexAction()
     {
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+
         $data = array(
-            'entity' => 'ZIMZIMCategoryProductBundle:Category',
+            'manager' => $manager,
+            'dir' => self::DIR,
             'show' => 'zimzim_categoryproduct_category_show',
             'edit' => 'zimzim_categoryproduct_category_edit'
         );
@@ -37,8 +38,10 @@ class CategoryController extends MainController
      */
     public function createAction(Request $request)
     {
-        $entity = new Category();
-        $form = $this->createCreateForm($entity);
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+
+        $entity = $manager->createEntity();
+        $form = $this->createCreateForm($entity, $manager);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -69,10 +72,10 @@ class CategoryController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Category $entity)
+    private function createCreateForm($entity, $manager)
     {
         $form = $this->createForm(
-            new CategoryType(),
+            $manager->getFormname(),
             $entity,
             array(
                 'action' => $this->generateUrl('zimzim_categoryproduct_category_create'),
@@ -91,8 +94,10 @@ class CategoryController extends MainController
      */
     public function newAction()
     {
-        $entity = new Category();
-        $form = $this->createCreateForm($entity);
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+
+        $entity = $manager->createEntity();
+        $form = $this->createCreateForm($entity, $manager);
 
         return $this->render(
             'ZIMZIMCategoryProductBundle:Category:new.html.twig',
@@ -109,9 +114,9 @@ class CategoryController extends MainController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
@@ -134,15 +139,15 @@ class CategoryController extends MainController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity,$manager);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
@@ -162,10 +167,10 @@ class CategoryController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Category $entity)
+    private function createEditForm($entity, $manager)
     {
         $form = $this->createForm(
-            new CategoryType(),
+            $manager->getFormname(),
             $entity,
             array(
                 'action' => $this->generateUrl(
@@ -189,7 +194,9 @@ class CategoryController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->find($id);
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Category entity.');
@@ -201,7 +208,7 @@ class CategoryController extends MainController
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $manager);
 
         $editForm->handleRequest($request);
 
@@ -247,10 +254,11 @@ class CategoryController extends MainController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->find($id);
+            $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+            $entity = $manager->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Category entity.');
+                throw $this->createNotFoundException('Unable to find '.$manager->getClassName().' entity.');
             }
 
             $em->remove($entity);
@@ -279,13 +287,13 @@ class CategoryController extends MainController
 
 
     public function listCategoryBySlugAction($slug = null){
-        
-        $em = $this->getDoctrine()->getManager();
+
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
 
         if(isset($slug)){
-            $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->findOneBy(array('slug' => $slug));
+            $entity = $manager->findBySlug($slug);
         }else{
-            $entity = $em->getRepository('ZIMZIMCategoryProductBundle:Category')->find(1);
+            $entity = $manager->find(1);
         }
 
         if (!$entity) {

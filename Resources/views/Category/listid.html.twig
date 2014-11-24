@@ -42,102 +42,65 @@
     <div class="row">
         <div class="small-10 small-centered columns">
             <div class="row">
-                {% if entity.path == null %}
-                    <div class="medium-12 columns">
-                        <h1 class="text-center title-category">
+                <div class="medium-2 columns hide-for-small">
+                    <div class="title-category nomargin">
+                        <a {% if entity.slug == "" %}
+                            href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
+                        {% else %}
+                            href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':entity.slug}) }}"
+                        {% endif %}
+                                >
+                            <img src="/{{ entity.webpath }}" class="full-width"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="medium-10 columns">
+                    <a {% if entity.slug == "" %}
+                        href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
+                    {% else %}
+                        href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':entity.slug}) }}"
+                    {% endif %}
+                            >
+                        <h1 class="text-center title-category nomargin">
                             {{ entity.name }}
                         </h1>
-                    </div>
-                {% else %}
-                    <div class="medium-2 columns">
-                        <img src="/{{ entity.webpath }}" class="full-width"/>
-                    </div>
-                    <div class="medium-10 columns">
-                        <h1 class="text-center title-category">
-                            {{ entity.name }}
-                        </h1>
-                    </div>
-                {% endif %}
+                    </a>
+                </div>
                 {% if entity.content != null %}
                     <div class="medium-12 columns">
-                        <p>
-                            {{ entity.content|raw }}
-                        </p>
+                        {{ entity.content|raw }}
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <hr>
 
-    <div class="row full-width">
-        <div class="small-10 small-centered columns">
-            <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
-                {% for child in entity.children %}
-                    <li class="category-box">
-                        <div class="fullfull">
-                            <a class="front" {% if child.slug == "" %}
-                                href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                            {% else %}
-                                href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':child.slug}) }}"
-                            {% endif %}
-                                    >
-                                {% if child.webpath != null %}
-                                    <img class="img-medium" src="/{{ child.webpath }}"
-                                         alt="{{ child.name }} - {{ child.description }}"/>
-                                {% endif %}
-                            </a>
-                            <a class="behind" {% if child.slug == "" %}
-                                href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                            {% else %}
-                                href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':child.slug}) }}"
-                            {% endif %}
-                                    >
-                                <img class="img-medium fake-image" src="/{{ child.webpath }}"
-                                     alt="{{ child.name }} - {{ child.description }}"/>
-                            </a>
-                            <h3 class="text-center h3category">
-                                <a {% if child.slug == "" %}
-                                    href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                                {% else %}
-                                    href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':child.slug}) }}"
-                                {% endif %}
-                                        >
-                                    {{ child.name }}
-                                </a>
-                            </h3>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
+    {% if entity.children|length != 0 %}
+
+        <hr class="category">
+
+        <div class="row full-width">
+            <div class="small-10 small-centered columns">
+                <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+                    {% for child in entity.children %}
+                        {% include 'ZIMZIMCategoryProductBundle:Category:include/categorybox.html.twig' with {'child': child} %}
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </div>
+
+    {% endif %}
 
     {% if entity.categoryproducts|length != 0 %}
-        <div class="row">
+
+        <hr class="category">
+
+        <div class="row full-width">
             <div class="small-10 small-centered columns">
                 <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
                     {% for categoryproduct in entity.categoryproducts %}
-                        <li class="category-box">
-                            <div class="fullfull">
-                                <a class="front" href="">
-                                    {% if categoryproduct.product.webpath1 != null %}
-                                        <img class="img-medium" src="/{{ categoryproduct.product.webpath1 }}"
-                                             alt="{{ categoryproduct.product.altpath1 }}"/>
-                                    {% endif %}
-                                </a>
-                                <a class="behind" >
-                                    <img class="img-medium fake-image" src="/{{ categoryproduct.product.webpath2 }}"
-                                         alt="{{ categoryproduct.product.altpath2 }}"/>
-                                </a>
-                                <h3 class="text-center h3category">
-                                    <a >
-                                        {{ categoryproduct.product.name }}
-                                    </a>
-                                </h3>
-                            </div>
-                        </li>
+                        {% include 'ZIMZIMCategoryProductBundle:Category:include/categoryproductbox.html.twig' with {'categoryproduct': categoryproduct} %}
                     {% endfor %}
                 </ul>
             </div>

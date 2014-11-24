@@ -5,6 +5,7 @@ namespace ZIMZIM\CategoryProductBundle\Controller;
 
 use APY\DataGridBundle\Grid\Action\MassAction;
 use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Row;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -23,7 +24,7 @@ class MainController extends Controller
             $type = $data['type'];
         }
 
-        $source = new Entity($data['entity'], $type);
+        $source = new Entity($data['manager']->getClassName(), $type);
 
         if (isset($data['show'])) {
             $rowAction = new RowAction("ZIMZIMCategoryProduct.button.show", $data['show']);
@@ -47,10 +48,10 @@ class MainController extends Controller
 
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $em->getRepository($data['entity'])->getList($source);
+        $data['manager']->getRepository()->getList($source);
 
         $source->manipulateRow(
-            function ($row) use ($em) {
+            function (Row $row) {
                 if (method_exists($row->getEntity(), 'getListAttrImg')) {
                     foreach ($row->getEntity()->getListAttrImg() as $attr) {
                         $method = 'get' . ucfirst($attr);
@@ -70,7 +71,7 @@ class MainController extends Controller
 
         $this->grid = $grid;
 
-        return $this->grid->getGridResponse($data['entity'] . ':index.html.twig');
+        return $this->grid->getGridResponse($data['dir'] . ':index.html.twig');
     }
 
     protected function createSuccess()

@@ -21,6 +21,10 @@ admincategory:
         image: "Image"
         updatedat: "Modifier le"
         products: "Produits"
+admincategoryproduct:
+    entity:
+        product: "Produit"
+        position: "Position"
 home:
     index:
         title: "Page de presentation des categories et produits mis en valeur"
@@ -29,3 +33,10 @@ button:
     return: "Retour"
     update: "Modifier"
     delete: "Supprimer"
+form:
+    type:
+        collection:
+            categoryproducts:
+                name: "Produit"
+                add: "Ajouter un produit"
+                delete: "Retirer ce produit"
