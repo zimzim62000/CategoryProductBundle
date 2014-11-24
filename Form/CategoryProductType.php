@@ -7,9 +7,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use ZIMZIM\CategoryProductBundle\Doctrine\CategoryProductManager;
 
 class CategoryProductType extends AbstractType
 {
+    private $categoryProductManager;
+
+    public function  __construct(CategoryProductManager $categoryProductManager)
+    {
+        $this->categoryProductManager = $categoryProductManager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -40,7 +48,7 @@ class CategoryProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'ZIMZIM\CategoryProductBundle\Entity\CategoryProduct',
+                'data_class' => $this->categoryProductManager->getClassName(),
                 'label' => '__name__label__',
                 'attr' => array(
                     'class' => 'zimzim-panel',

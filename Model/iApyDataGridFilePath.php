@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Entity;
+namespace ZIMZIM\CategoryProductBundle\Model;
 
 interface iApyDataGridFilePath{
 

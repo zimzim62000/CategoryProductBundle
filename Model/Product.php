@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Entity;
+namespace ZIMZIM\CategoryProductBundle\Model;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,11 +12,10 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * Product
  *
- * @ORM\Table(name="default_product")
- * @ORM\Entity(repositoryClass="ProductRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
+ *
  */
-class Product implements Translatable, iApyDataGridFilePath
+abstract class Product implements Translatable, iApyDataGridFilePath
 {
     /**
      * @var integer
@@ -26,7 +25,7 @@ class Product implements Translatable, iApyDataGridFilePath
      * @ORM\GeneratedValue(strategy="AUTO")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -37,7 +36,7 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @Gedmo\Translatable
@@ -47,7 +46,7 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @ORM\Column(length=128, unique=true, name="slug")
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var string
@@ -58,7 +57,7 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
@@ -69,40 +68,7 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @ORM\Column(name="description", type="text")
      */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     *
-     * @ORM\Column(name="feature", type="text", nullable=true)
-     *
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
-     */
-    private $feature;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     *
-     * @ORM\Column(name="listing", type="text", nullable=true)
-     *
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
-     */
-    private $listing;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     *
-     * @ORM\Column(name="specification", type="text", nullable=true)
-     *
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
-     */
-    private $specification;
+    protected $description;
 
 
     /**
@@ -114,7 +80,7 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
@@ -125,22 +91,23 @@ class Product implements Translatable, iApyDataGridFilePath
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @Gedmo\Locale
      */
-    private $locale;
+    protected $locale;
 
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
     }
 
+
     /**
-     * @ORM\OneToMany(targetEntity="CategoryProduct", mappedBy="categories")
+     * @ORM\Column(name="categoryproducts", type="array")
      **/
-    private $categoryproducts;
+    protected $categoryproducts;
 
     public function __construct()
     {
@@ -270,7 +237,7 @@ class Product implements Translatable, iApyDataGridFilePath
 
     protected function getUploadRootDir()
     {
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -426,78 +393,6 @@ class Product implements Translatable, iApyDataGridFilePath
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set feature
-     *
-     * @param string $feature
-     *
-     * @return Product
-     */
-    public function setFeature($feature)
-    {
-        $this->feature = $feature;
-
-        return $this;
-    }
-
-    /**
-     * Get feature
-     *
-     * @return string
-     */
-    public function getFeature()
-    {
-        return $this->feature;
-    }
-
-    /**
-     * Set listing
-     *
-     * @param string $listing
-     *
-     * @return Product
-     */
-    public function setListing($listing)
-    {
-        $this->listing = $listing;
-
-        return $this;
-    }
-
-    /**
-     * Get listing
-     *
-     * @return string
-     */
-    public function getListing()
-    {
-        return $this->listing;
-    }
-
-    /**
-     * Set specification
-     *
-     * @param string $specification
-     *
-     * @return Product
-     */
-    public function setSpecification($specification)
-    {
-        $this->specification = $specification;
-
-        return $this;
-    }
-
-    /**
-     * Get specification
-     *
-     * @return string
-     */
-    public function getSpecification()
-    {
-        return $this->specification;
     }
 
 

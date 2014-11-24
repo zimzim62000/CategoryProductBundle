@@ -7,10 +7,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use ZIMZIM\CategoryProductBundle\Doctrine\CategoryManager;
+use ZIMZIM\CategoryProductBundle\Doctrine\CategoryProductManager;
 use ZIMZIM\CategoryProductBundle\Entity\CategoryRepository;
 
 class CategoryType extends AbstractType
 {
+
+    private $categoryManager;
+    private $categoryProductManager;
+
+    public function  __construct(CategoryManager $categoryManager, CategoryProductManager $categoryProductManager)
+    {
+        $this->categoryManager = $categoryManager;
+        $this->categoryProductManager = $categoryProductManager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -61,34 +73,36 @@ class CategoryType extends AbstractType
                         return;
                     }
                 }
+                $repository = $this->categoryManager->getRepository();
                 $form->
-                add(
-                    'parent',
-                    'entity',
-                    array(
-                        'class' => 'ZIMZIMCategoryProductBundle:Category',
-                        'property' => 'indentedTitle',
-                        'query_builder' => function (CategoryRepository $er) use ($id_category) {
-                            $query = $er->createQueryBuilder('c');
-                            if (isset($id_category)) {
-                                $query->where('c.id <> :category')
-                                    ->setParameter('category', $id_category);
-                            }
-                            $query->orderBy('c.root', 'ASC')
-                                ->addOrderBy('c.lft', 'ASC');
+                    add(
+                        'parent',
+                        'entity',
+                        array(
+                            'class' => $this->categoryManager->getClassName(),
+                            'property' => 'indentedTitle',
+                            'query_builder' => function ($repository) use ($id_category) {
+                                    $query = $repository->createQueryBuilder('c');
+                                    if (isset($id_category)) {
+                                        $query->where('c.id <> :category')
+                                            ->setParameter('category', $id_category);
+                                    }
+                                    $query->orderBy('c.root', 'ASC')
+                                        ->addOrderBy('c.lft', 'ASC');
 
-                            return $query;
-                        },
-                        'label' => 'admincategory.entity.parent',
-                        'translation_domain' => 'ZIMZIMCategoryProduct'
-                    )
-                );
+                                    return $query;
+                                },
+                            'label' => 'admincategory.entity.parent',
+                            'translation_domain' => 'ZIMZIMCategoryProduct'
+                        )
+                    );
+
                 if ($category && $category->getId() !== null) {
                     $form->add(
                         'categoryproducts',
                         'zimzim_categoryproductbundle_zimzimcollection',
                         array(
-                            'type' => 'zimzim_categoryproductbundle_categoryproducttype',
+                            'type' => $this->categoryProductManager->getFormname(),
                             'allow_add' => true,
                             'allow_delete' => true,
                             'by_reference' => true,
@@ -104,6 +118,7 @@ class CategoryType extends AbstractType
                         )
                     );
                 }
+
             }
         );
     }
@@ -113,15 +128,7 @@ class CategoryType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'ZIMZIM\CategoryProductBundle\Entity\Category',
-                'attr' => array(
-                    'class' => 'zimzim-panel'
-                ),
-                'cascade_validation' => true
-            )
-        );
+        $resolver->setDefaults(array('data_class' => $this->categoryManager->getClassName()));
     }
 
     /**

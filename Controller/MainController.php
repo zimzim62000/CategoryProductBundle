@@ -23,7 +23,7 @@ class MainController extends Controller
             $type = $data['type'];
         }
 
-        $source = new Entity($data['entity'], $type);
+        $source = new Entity($data['manager']->getClassName(), $type);
 
         if (isset($data['show'])) {
             $rowAction = new RowAction("ZIMZIMCategoryProduct.button.show", $data['show']);
@@ -47,7 +47,7 @@ class MainController extends Controller
 
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $em->getRepository($data['entity'])->getList($source);
+        $data['manager']->getRepository()->getList($source);
 
         $source->manipulateRow(
             function ($row) use ($em) {
@@ -70,7 +70,7 @@ class MainController extends Controller
 
         $this->grid = $grid;
 
-        return $this->grid->getGridResponse($data['entity'] . ':index.html.twig');
+        return $this->grid->getGridResponse($data['dir'] . ':index.html.twig');
     }
 
     protected function createSuccess()

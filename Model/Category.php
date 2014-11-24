@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Entity;
+namespace ZIMZIM\CategoryProductBundle\Model;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
@@ -8,15 +8,16 @@ use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
+//@Gedmo\Tree(type="nested")
+//@ORM\Table
+//@ORM\HasLifecycleCallbacks
 /**
  * Category
  *
- * @Gedmo\Tree(type="nested")
- * @ORM\Table(name="default_category")
- * @ORM\Entity(repositoryClass="CategoryRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
+ *
  */
-class Category implements Translatable, iApyDataGridFilePath
+abstract class Category implements Translatable, iApyDataGridFilePath
 {
     /**
      * @var integer
@@ -26,7 +27,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\GeneratedValue(strategy="AUTO")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -37,7 +38,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="name", type="string", length=255)
      * @GRID\Column(operatorsVisible=false, title="ZIMZIMCategoryProduct.name")
      */
-    private $name;
+    protected $name;
 
     /**
      * @Gedmo\Translatable
@@ -47,7 +48,7 @@ class Category implements Translatable, iApyDataGridFilePath
      *
      * @ORM\Column(length=128, unique=true, name="slug")
      */
-    private $slug;
+    protected $slug;
 
 
     /**
@@ -57,7 +58,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      * @GRID\Column(operatorsVisible=false, visible=false, sortable=false)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
@@ -66,7 +67,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="description", type="text", nullable=true)
      * @GRID\Column(operatorsVisible=false, visible=false, sortable=false)
      */
-    private $description;
+    protected $description;
 
 
     /**
@@ -76,7 +77,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="content", type="text", nullable=true)
      * @GRID\Column(operatorsVisible=false, visible=false, sortable=false)
      */
-    private $content;
+    protected $content;
 
     /**
      * @var \DateTime
@@ -85,7 +86,7 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="created_at", type="datetime")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
@@ -94,24 +95,25 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="updated_at", type="datetime")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $updatedAt;
+    protected $updatedAt;
 
 
     /**
      * @Gedmo\Locale
      */
-    private $locale;
+    protected $locale;
 
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
     }
 
+    //@ORM\OneToMany(targetEntity="CategoryProduct", mappedBy="category",cascade={"persist"})
+    //@ORM\OrderBy({"position" = "ASC"})
     /**
-     * @ORM\OneToMany(targetEntity="CategoryProduct", mappedBy="category",cascade={"persist"})
-     * @ORM\OrderBy({"position" = "ASC"})
+     * @ORM\Column(name="categoryproducts", type="array")
      **/
-    private $categoryproducts;
+    protected $categoryproducts;
 
 
     /******************************** IMAGE **************************/
@@ -154,7 +156,7 @@ class Category implements Translatable, iApyDataGridFilePath
     {
         if (isset($this->file)) {
             if (null !== $this->file) {
-                $this->path1 = urlencode(
+                $this->path = urlencode(
                         str_replace('.' . $this->file->guessExtension(), '', $this->file->getClientOriginalName())
                     ) . '.' . $this->file->guessExtension();
             }
@@ -196,28 +198,28 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\Column(name="lft", type="integer")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $lft;
+    protected $lft;
 
     /**
      * @Gedmo\TreeLevel
      * @ORM\Column(name="lvl", type="integer")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $lvl;
+    protected $lvl;
 
     /**
      * @Gedmo\TreeRight
      * @ORM\Column(name="rgt", type="integer")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $rgt;
+    protected $rgt;
 
     /**
      * @Gedmo\TreeRoot
      * @ORM\Column(name="root", type="integer", nullable=true)
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    private $root;
+    protected $root;
 
     /**
      * @Gedmo\TreeParent
@@ -227,13 +229,13 @@ class Category implements Translatable, iApyDataGridFilePath
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      */
-    private $parent;
+    public $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
-    private $children;
+    public $children;
 
 
     /******************************** THREE **************************/
@@ -681,5 +683,6 @@ class Category implements Translatable, iApyDataGridFilePath
         }
         return $this;
     }
+
 
 }
