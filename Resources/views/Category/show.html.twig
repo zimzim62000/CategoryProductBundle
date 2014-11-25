@@ -47,12 +47,12 @@
                 {% if entity.path != null %}
                     <tr>
                         <th>{{ 'admincategory.entity.image'|trans}}</th>
-                        <td><img src="/{{ entity.getWebPath }}"/></td>
+                        <td><img src="/{{ entity.getWebPath }}" style="max-height:75px;"/></td>
                     </tr>
                 {% endif %}
                 <tr>
                     <th>{{ 'admincategory.entity.updatedat'|trans}}</th>
-                    <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ entity.updatedAt|date('d/m/Y H:i:s') }}</td>
                 </tr>
                 </tbody>
             </table>

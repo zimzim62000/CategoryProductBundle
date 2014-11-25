@@ -1,0 +1,49 @@
+{% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
+
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
+
+{% block title %}
+    {{ 'adminproduct.show.title'|trans({'%name%': entity.name }) }}
+{% endblock title %}
+
+{% block metadescription %}
+    {{ entity.description }}
+{% endblock metadescription %}
+
+{% block page %}
+
+    {% block breadcrumbs %}
+        {% if category.Parents|length != 0 %}
+            <nav class="breadcrumbs">
+                {% for key, parent in category.Parents if parent != null %}
+                    {% if parent.slug == "" %}
+                        {% set linkparent = path('zimzim_categoryproduct_category_listslugnull') %}
+                    {% else %}
+                        {% set linkparent = path('zimzim_categoryproduct_category_listslug', {'slug':parent.slug}) %}
+                    {% endif %}
+                    <a {% if parent.id == category.id %} class="current"{% endif %} href="{{ linkparent }}">
+                        {{ parent.name }}
+                    </a>
+                {% endfor %}
+            </nav>
+        {% endif %}
+    {% endblock breadcrumbs %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="text-center headerpagehome">
+                {{ 'adminproduct.show.title'|trans({'%name%': entity.name }) }}
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="medium-6 columns">
+            <img src="/{{ entity.webpath1 }}"/>
+        </div>
+        <div class="medium-6 columns">
+            <p>
+                {{ entity.description }}
+            </p>
+        </div>
+    </div>
+{% endblock page %}

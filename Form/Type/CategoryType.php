@@ -60,11 +60,18 @@ class CategoryType extends AbstractType
             function (FormEvent $event) {
                 $category = $event->getData();
                 $form = $event->getForm();
+                $addParent = true;
                 $id_category = null;
 
                 $url = '';
-                if ($category->getId() !== null) {
+                if ($category && $category->getId() !== null) {
+
                     $url = $category->getWebPath();
+
+                    $id_category = $category->getId();
+                    if ($id_category === 1) {
+                        $addParent = false;
+                    }
                 }
 
                 $form->add(
@@ -80,35 +87,32 @@ class CategoryType extends AbstractType
                     )
                 );
 
-                if ($category && $category->getId() !== null) {
-                    $id_category = $category->getId();
-                    if ($id_category === 1) {
-                        return;
-                    }
-                }
                 $repository = $this->categoryManager->getRepository();
-                $form->
-                add(
-                    'parent',
-                    'entity',
-                    array(
-                        'class' => $this->categoryManager->getClassName(),
-                        'property' => 'indentedTitle',
-                        'query_builder' => function () use ($id_category, $repository) {
-                            $query = $repository->createQueryBuilder('c');
-                            if (isset($id_category)) {
-                                $query->where('c.id <> :category')
-                                    ->setParameter('category', $id_category);
-                            }
-                            $query->orderBy('c.root', 'ASC')
-                                ->addOrderBy('c.lft', 'ASC');
+                if ($addParent) {
+                    $form->
+                    add(
+                        'parent',
+                        'entity',
+                        array(
+                            'class' => $this->categoryManager->getClassName(),
+                            'property' => 'indentedTitle',
+                            'query_builder' => function () use ($id_category, $repository) {
+                                $query = $repository->createQueryBuilder('c');
+                                if (isset($id_category)) {
+                                    $query->where('c.id <> :category')
+                                        ->setParameter('category', $id_category);
+                                }
+                                $query->orderBy('c.root', 'ASC')
+                                    ->addOrderBy('c.lft', 'ASC');
 
-                            return $query;
-                        },
-                        'label' => 'admincategory.entity.parent',
-                        'translation_domain' => 'ZIMZIMCategoryProduct'
-                    )
-                );
+                                return $query;
+                            },
+                            'label' => 'admincategory.entity.parent',
+                            'translation_domain' => 'ZIMZIMCategoryProduct'
+                        )
+                    );
+                }
+
 
                 if ($category && $category->getId() !== null) {
                     $form->add(

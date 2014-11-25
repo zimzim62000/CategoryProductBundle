@@ -164,6 +164,7 @@ class CategoryController extends MainController
 
         $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
+        $moveUpForm = $this->createMoveUpForm($id);
 
         return $this->render(
             'ZIMZIMCategoryProductBundle:Category:edit.html.twig',
@@ -171,6 +172,7 @@ class CategoryController extends MainController
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
+                'moveup_form' => $moveUpForm->createView()
             )
         );
     }
@@ -228,6 +230,7 @@ class CategoryController extends MainController
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity, $manager);
+        $moveUpForm = $this->createMoveUpForm($id);
 
         $editForm->handleRequest($request);
 
@@ -258,6 +261,7 @@ class CategoryController extends MainController
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
+                'moveup_form' => $moveUpForm->createView()
             )
         );
     }
@@ -330,5 +334,51 @@ class CategoryController extends MainController
                 'entity' => $entity,
             )
         );
+    }
+
+    public function moveUpAction(Request $request, $id){
+
+        $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $manager->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Product entity.');
+        }
+
+        $moveUpForm = $this->createMoveUpForm($id);
+        $moveUpForm->handleRequest($request);
+
+        if ($moveUpForm->isValid()) {
+
+            $manager->moveUp($entity, 1);
+            $this->updateSuccess();
+            $em->flush();
+            $em->clear();
+
+            return $this->redirect($this->generateUrl('zimzim_categoryproduct_category_edit', array('id' => $id)));
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+        $editForm = $this->createEditForm($entity, $manager);
+
+        return $this->render(
+            'ZIMZIMCategoryProductBundle:Category:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
+    }
+
+    private function createMoveUpForm($id){
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('zimzim_categoryproduct_category_moveup', array('id' => $id)))
+            ->setMethod('PUT')
+            ->add('submit', 'submit', array('label' => 'button.moveup', 'translation_domain' => 'ZIMZIMCategoryProduct'))
+            ->getForm();
     }
 }

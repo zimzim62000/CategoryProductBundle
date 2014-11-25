@@ -153,7 +153,7 @@ class ProductController extends MainController
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
+                'delete_form' => $deleteForm->createView()
             )
         );
     }
@@ -172,9 +172,9 @@ class ProductController extends MainController
             $entity,
             array(
                 'action' => $this->generateUrl(
-                        'zimzim_categoryproduct_product_update',
-                        array('id' => $entity->getId())
-                    ),
+                    'zimzim_categoryproduct_product_update',
+                    array('id' => $entity->getId())
+                ),
                 'method' => 'PUT',
             )
         );
@@ -217,7 +217,7 @@ class ProductController extends MainController
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
+                'delete_form' => $deleteForm->createView()
             )
         );
     }
@@ -263,4 +263,34 @@ class ProductController extends MainController
             ->add('submit', 'submit', array('label' => 'button.delete'))
             ->getForm();
     }
+
+
+    public function showProductBySlugAction($slugcategory, $slugproduct)
+    {
+
+        $manager = $this->container->get('zimzim_categoryproduct_productmanager');
+
+        $entity = $manager->findBySlug($slugproduct);
+
+        $managerCategory = $this->container->get('zimzim_categoryproduct_categorymanager');
+
+        $category = $managerCategory->findBySlug($slugcategory);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Product entity.');
+        }
+
+        if (!$category) {
+            throw $this->createNotFoundException('Unable to find Category entity.');
+        }
+
+        return $this->render(
+            'ZIMZIMCategoryProductBundle:Product:showslug.html.twig',
+            array(
+                'entity' => $entity,
+                'category' => $category
+            )
+        );
+    }
+
 }

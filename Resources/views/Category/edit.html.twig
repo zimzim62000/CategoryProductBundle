@@ -13,9 +13,16 @@
                 {{ 'admincategory.update.title'|trans({'%name%': entity.name}) }}
             </h1>
         </div>
+        {#
+        <div class="small-2 columns">
+            <h1 class="text-center headerpagehome">
+                {{ form(moveup_form) }}
+            </h1>
+        </div>
+        #}
     </div>
     <div class="row">
-        <div class="small-12 columns">
+        <div class="small-12 columns panel">
             {{ form(edit_form) }}
         </div>
     </div>

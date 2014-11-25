@@ -13,3 +13,7 @@ zimzim_categoryproduct_category:
 zimzim_categoryproduct_adminproduct:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/adminproduct.yml"
     prefix:   /admin/product/
+
+zimzim_categoryproduct_product:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/product.yml"
+    prefix:   /product/

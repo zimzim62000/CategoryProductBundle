@@ -34,7 +34,7 @@ admincategory:
         title: "Méta title"
         desc: "Méta description"
         content: "Contenu"
-        parent: "Parent"
+        parent: "Categorie parent"
         image: "Image"
         updatedat: "Modifier le"
         products: "Produits"
@@ -50,6 +50,9 @@ button:
     return: "Retour"
     update: "Modifier"
     delete: "Supprimer"
+    show: "Voir"
+    moveup: "Remonté"
+    movedown: "descendre"
 form:
     type:
         collection:
