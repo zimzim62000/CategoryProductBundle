@@ -77,7 +77,6 @@ class ProductType extends AbstractType
                 }
             }
         );
-
     }
 
     /**
