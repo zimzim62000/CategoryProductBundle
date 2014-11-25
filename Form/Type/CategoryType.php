@@ -80,7 +80,7 @@ class CategoryType extends AbstractType
                     array(
                         'class' => $this->categoryManager->getClassName(),
                         'property' => 'indentedTitle',
-                        'query_builder' => function ($repository) use ($id_category) {
+                        'query_builder' => function () use ($id_category, $repository) {
                             $query = $repository->createQueryBuilder('c');
                             if (isset($id_category)) {
                                 $query->where('c.id <> :category')

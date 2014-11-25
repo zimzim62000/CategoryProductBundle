@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
@@ -244,8 +245,8 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      */
     public function __construct()
     {
-        $this->children = new Doctrine\Common\Collections\ArrayCollection();
-        $this->categoryproducts = new Doctrine\Common\Collections\ArrayCollection();
+        $this->children = new ArrayCollection();
+        $this->categoryproducts = new ArrayCollection();
     }
 
     /**

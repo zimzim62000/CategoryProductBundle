@@ -46,8 +46,6 @@ class MainController extends Controller
             $grid->setSource($source);
         }
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
-
         $data['manager']->getRepository()->getList($source);
 
         $source->manipulateRow(

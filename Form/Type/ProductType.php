@@ -23,20 +23,51 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('title')
-            ->add('description')
-            ->add('feature')
-            ->add('listing')
-            ->add('specification')
-            ->add('file1')
-            ->add('altPath1')
-            ->add('file2')
-            ->add('altPath2')
-            ->add('file3')
-            ->add('altPath3')
-            ->add('file4')
-            ->add('altPath4');
+            ->add(
+                'name',
+                null,
+                array('label' => 'adminproduct.entity.name', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('title',
+                null,
+                array('label' => 'adminproduct.entity.title', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('description',
+                null,
+                array('label' => 'adminproduct.entity.description', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('file1',
+                null,
+                array('label' => 'adminproduct.entity.image', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('altPath1',
+                null,
+                array('label' => 'adminproduct.entity.altpath', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('file2',
+                null,
+                array('label' => 'adminproduct.entity.image', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('altPath2',
+                null,
+                array('label' => 'adminproduct.entity.altpath', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('file3',
+                null,
+                array('label' => 'adminproduct.entity.image', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('altPath3',
+                null,
+                array('label' => 'adminproduct.entity.altpath', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('file4',
+                null,
+                array('label' => 'adminproduct.entity.image', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
+            ->add('altPath4',
+                null,
+                array('label' => 'adminproduct.entity.altpath', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            );
     }
 
     /**
@@ -47,8 +78,7 @@ class ProductType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => $this->productmanager->getClassName(),
-                'attr' => array(
-                ),
+                'attr' => array(),
                 'cascade_validation' => true
             )
         );

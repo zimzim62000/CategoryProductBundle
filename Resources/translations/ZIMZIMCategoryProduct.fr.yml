@@ -2,6 +2,23 @@ category:
     listid:
         metatitle: "Categories disponible"
         metadesc: "Liste des sous catégories"
+adminproduct:
+    index:
+        title: "Administration des produits"
+    show:
+        title: "descriptif du produit : %name%"
+    new:
+        title: "Création d'un produit"
+    update:
+        title: "Modification du produit : %name%"
+    entity:
+        id: "Id"
+        name: "Nom"
+        title: "Méta title"
+        description: "Méta description"
+        image: "Image"
+        updatedat: "Modifier le"
+        altpath: "Texte de l'image"
 admincategory:
     index:
         title: "Administration des categories"
