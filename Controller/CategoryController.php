@@ -4,6 +4,7 @@ namespace ZIMZIM\CategoryProductBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
+use APY\DataGridBundle\Grid\Row;
 
 
 /**
@@ -31,6 +32,16 @@ class CategoryController extends MainController
 
         return $this->gridList($data);
     }
+
+    protected function manipulateRow(Row $row)
+    {
+
+        $row = parent::manipulateRow($row);
+        $row->setField('name', $row->getEntity()->getIndentedTitle());
+
+        return $row;
+    }
+
 
     /**
      * Creates a new Category entity.
@@ -75,7 +86,7 @@ class CategoryController extends MainController
     private function createCreateForm($entity, $manager)
     {
         $form = $this->createForm(
-            $manager->getFormname(),
+            $manager->getFormName(),
             $entity,
             array(
                 'action' => $this->generateUrl('zimzim_categoryproduct_category_create'),
@@ -83,7 +94,11 @@ class CategoryController extends MainController
             )
         );
 
-        $form->add('submit', 'submit', array('label' => 'button.create', 'translation_domain' => 'ZIMZIMCategoryProduct'));
+        $form->add(
+            'submit',
+            'submit',
+            array('label' => 'button.create', 'translation_domain' => 'ZIMZIMCategoryProduct')
+        );
 
         return $form;
     }
@@ -147,7 +162,7 @@ class CategoryController extends MainController
             throw $this->createNotFoundException('Unable to find Category entity.');
         }
 
-        $editForm = $this->createEditForm($entity,$manager);
+        $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
@@ -170,18 +185,22 @@ class CategoryController extends MainController
     private function createEditForm($entity, $manager)
     {
         $form = $this->createForm(
-            $manager->getFormname(),
+            $manager->getFormName(),
             $entity,
             array(
                 'action' => $this->generateUrl(
-                        'zimzim_categoryproduct_category_update',
-                        array('id' => $entity->getId())
-                    ),
+                    'zimzim_categoryproduct_category_update',
+                    array('id' => $entity->getId())
+                ),
                 'method' => 'PUT',
             )
         );
 
-        $form->add('submit', 'submit', array('label' => 'button.update', 'translation_domain' => 'ZIMZIMCategoryProduct'));
+        $form->add(
+            'submit',
+            'submit',
+            array('label' => 'button.update', 'translation_domain' => 'ZIMZIMCategoryProduct')
+        );
 
         return $form;
     }
@@ -216,13 +235,13 @@ class CategoryController extends MainController
             $entity->preUpload();
 
             foreach ($entity->getCategoryproducts() as $CategoryProduct) {
-                if($CategoryProduct->getCategory() === null){
+                if ($CategoryProduct->getCategory() === null) {
                     $CategoryProduct->setCategory($entity);
                 }
             }
 
-            foreach($originalCategoryProducts as $CategoryProduct){
-                if($entity->getCategoryproducts()->contains($CategoryProduct) === false){
+            foreach ($originalCategoryProducts as $CategoryProduct) {
+                if ($entity->getCategoryproducts()->contains($CategoryProduct) === false) {
                     $em->remove($CategoryProduct);
                 }
             }
@@ -258,7 +277,7 @@ class CategoryController extends MainController
             $entity = $manager->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find '.$manager->getClassName().' entity.');
+                throw $this->createNotFoundException('Unable to find ' . $manager->getClassName() . ' entity.');
             }
 
             $em->remove($entity);
@@ -281,18 +300,23 @@ class CategoryController extends MainController
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('zimzim_categoryproduct_category_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'button.delete', 'translation_domain' => 'ZIMZIMCategoryProduct'))
+            ->add(
+                'submit',
+                'submit',
+                array('label' => 'button.delete', 'translation_domain' => 'ZIMZIMCategoryProduct')
+            )
             ->getForm();
     }
 
 
-    public function listCategoryBySlugAction($slug = null){
+    public function listCategoryBySlugAction($slug = null)
+    {
 
         $manager = $this->container->get('zimzim_categoryproduct_categorymanager');
 
-        if(isset($slug)){
+        if (isset($slug)) {
             $entity = $manager->findBySlug($slug);
-        }else{
+        } else {
             $entity = $manager->find(1);
         }
 

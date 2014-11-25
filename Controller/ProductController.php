@@ -73,7 +73,7 @@ class ProductController extends MainController
     private function createCreateForm($entity, $manager)
     {
         $form = $this->createForm(
-            $manager->getFormname(),
+            $manager->getFormName(),
             $entity,
             array(
                 'action' => $this->generateUrl('zimzim_categoryproduct_product_create'),
@@ -168,7 +168,7 @@ class ProductController extends MainController
     private function createEditForm($entity, $manager)
     {
         $form = $this->createForm(
-            $manager->getFormname(),
+            $manager->getFormName(),
             $entity,
             array(
                 'action' => $this->generateUrl(

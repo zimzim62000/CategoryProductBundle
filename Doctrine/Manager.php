@@ -5,23 +5,41 @@ namespace ZIMZIM\CategoryProductBundle\Doctrine;
 use Doctrine\ORM\EntityManager;
 use ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationManagerInterface;
 
-abstract class Manager implements ConfigurationManagerInterface
+abstract class Manager
 {
     protected $className;
-    protected $dirname;
-    protected $formname;
+    protected $repositoryName;
+    protected $formName;
     protected $entityManager;
 
 
-    public function __construct(EntityManager $entityManager, ConfigurationManagerInterface $configuration){
+    public function __construct(EntityManager $entityManager, ConfigurationManagerInterface $configuration)
+    {
         $this->entityManager = $entityManager;
         $this->className = $configuration->getClassName();
-        $this->dirname = $configuration->getDirname();
-        $this->formname = $configuration->getFormname();
+        $this->repositoryName = $configuration->getRepositoryName();
+        $this->formName = $configuration->getFormName();
+    }
+
+    public function createEntity()
+    {
+        return new $this->className();
+    }
+
+    public function getRepository()
+    {
+        return $this->entityManager->getRepository($this->className);
+    }
+
+
+    public function find($id)
+    {
+
+        return $this->getRepository()->find($id);
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     public function getClassName()
     {
@@ -29,34 +47,12 @@ abstract class Manager implements ConfigurationManagerInterface
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function getDirname()
+    public function getFormName()
     {
-        return $this->dirname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFormname()
-    {
-        return $this->formname;
+        return $this->formName;
     }
 
 
-    public function createEntity()
-    {
-        return new $this->className();
-    }
-
-    public function getRepository(){
-        return $this->entityManager->getRepository($this->className);
-    }
-
-
-    public function find($id){
-
-        return $this->getRepository()->find($id);
-    }
 }

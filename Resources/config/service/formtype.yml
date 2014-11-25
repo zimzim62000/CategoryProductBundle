@@ -1,0 +1,11 @@
+services:
+
+    zimzim_categoryproduct.form.type.zimzimcollectionformtype:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMCollectionType
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_zimzimcollection }
+
+    zimzim_categoryproduct.form.type.zimzimimageformtype:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMImageType
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_zimzimimage }

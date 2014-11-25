@@ -1,16 +1,16 @@
 {% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
 
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
 
+{% block title %}
+    {{ 'adminproduct.update.title'|trans({'%name%': entity.name}) }}
+{% endblock title %}
 
-    {% block title %}
-    {{ 'zimzim_categoryproduct_product.index.title'|trans }}
-    {% endblock title %}
-
-    {% block page %}
+{% block page %}
     <div class="row">
         <div class="small-12 columns">
             <h1 class="text-center headerpagehome">
-                Product edit
+                {{ 'adminproduct.update.title'|trans({'%name%': entity.name}) }}
             </h1>
         </div>
     </div>
@@ -20,16 +20,16 @@
         </div>
     </div>
 
-        <div class="row">
-    <div class="small-12 large-4 columns text-center">
-        <a class="tiny button round" href="{{ path('zimzim_categoryproduct_product') }}">
-            {{ 'link.return'|trans }}
-        </a>
+    <div class="row">
+        <div class="small-12 large-4 columns text-center">
+            <a class="tiny button" href="{{ path('zimzim_categoryproduct_product') }}">
+                {{ 'button.return'|trans }}
+            </a>
+        </div>
+        <div class="small-12 large-4 columns text-center">
+            {{ form(delete_form) }}
+        </div>
     </div>
-    <div class="small-12 large-4 columns text-center">
-        {{ form(delete_form) }}
-    </div>
-</div>
 
-    {% endblock %}
+{% endblock %}
 

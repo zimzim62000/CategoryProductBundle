@@ -1,8 +1,9 @@
 {% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
 
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
 
 {% block title %}
-    {{ 'zimzim_categoryproduct_product.index.title'|trans }}
+    {{ 'adminproduct.show.title'|trans({'%name%': entity.name }) }}
 {% endblock title %}
 
 
@@ -10,7 +11,7 @@
     <div class="row">
         <div class="small-12 columns">
             <h1 class="text-center headerpagehome">
-                Entity
+                {{ 'adminproduct.show.title'|trans({'%name%': entity.name }) }}
             </h1>
         </div>
     </div>
@@ -18,76 +19,77 @@
         <div class="small-12 columns">
             <table class="width-100 panel">
                 <tbody>
-                    <tr>
-                        <th>Id</th>
-                            <td>{{ entity.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
-                            <td>{{ entity.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Title</th>
-                            <td>{{ entity.title }}</td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
-                            <td>{{ entity.description }}</td>
-                    </tr>
-                    <tr>
-                        <th>Feature</th>
-                            <td>{{ entity.feature }}</td>
-                    </tr>
-                    <tr>
-                        <th>Listing</th>
-                            <td>{{ entity.listing }}</td>
-                    </tr>
-                    <tr>
-                        <th>Specification</th>
-                            <td>{{ entity.specification }}</td>
-                    </tr>
-                    <tr>
-                        <th>Createdat</th>
-                            <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Updatedat</th>
-                            <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Path1</th>
-                            <td>{{ entity.path1 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Path2</th>
-                            <td>{{ entity.path2 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Path3</th>
-                            <td>{{ entity.path3 }}</td>
-                    </tr>
-                    <tr>
-                        <th>Path4</th>
-                            <td>{{ entity.path4 }}</td>
-                    </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.id'|trans }}</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.name'|trans }}</th>
+                    <td>{{ entity.name }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.title'|trans }}</th>
+                    <td>{{ entity.title }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.description'|trans }}</th>
+                    <td>{{ entity.description }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.updatedat'|trans }}</th>
+                    <td>{{ entity.updatedAt|date('d/m/Y H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.image'|trans }} 1</th>
+                    <th><img src="/{{ entity.webpath1 }}" style="max-height:75px;"/></th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.altpath'|trans }} 1</th>
+                    <th>{{ entity.altpath1 }}</th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.image'|trans }} 2</th>
+                    <th><img src="/{{ entity.webpath2 }}" style="max-height:75px;"/></th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.altpath'|trans }} 2</th>
+                    <th>{{ entity.altpath2 }}</th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.image'|trans }} 3</th>
+                    <th><img src="/{{ entity.webpath3 }}" style="max-height:75px;"/></th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.altpath'|trans }} 3</th>
+                    <th>{{ entity.altpath3 }}</th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.image'|trans }} 4</th>
+                    <th><img src="/{{ entity.webpath4 }}" style="max-height:75px;"/></th>
+                </tr>
+                <tr>
+                    <th>{{ 'adminproduct.entity.altpath'|trans }} 4</th>
+                    <th>{{ entity.altpath4 }}</th>
+                </tr>
                 </tbody>
             </table>
 
-                        <div class="row">
-    <div class="small-12 large-4 columns text-center">
-        <a class="tiny button round" href="{{ path('zimzim_categoryproduct_product') }}">
-            {{ 'link.return'|trans }}
-        </a>
-    </div>
-    <div class="small-12 large-4 columns text-center">
-        <a class="tiny button round" href="{{ path('zimzim_categoryproduct_product_edit', { 'id': entity.id }) }}">
-            {{ 'button.update'|trans }}
-        </a>
-    </div>
-    <div class="small-12 large-4 columns text-center">
-        {{ form(delete_form) }}
-    </div>
-</div>
+            <div class="row">
+                <div class="small-12 large-4 columns text-center">
+                    <a class="tiny button" href="{{ path('zimzim_categoryproduct_product') }}">
+                        {{ 'link.return'|trans }}
+                    </a>
+                </div>
+                <div class="small-12 large-4 columns text-center">
+                    <a class="tiny button"
+                       href="{{ path('zimzim_categoryproduct_product_edit', { 'id': entity.id }) }}">
+                        {{ 'button.update'|trans }}
+                    </a>
+                </div>
+                <div class="small-12 large-4 columns text-center">
+                    {{ form(delete_form) }}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

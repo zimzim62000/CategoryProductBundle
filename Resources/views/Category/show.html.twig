@@ -3,7 +3,7 @@
 {% trans_default_domain 'ZIMZIMCategoryProduct' %}
 
 {% block title %}
-    {{ entity.name }}
+    {{ 'admincategory.show.title'|trans({'%name%': entity.name }) }}
 {% endblock title %}
 
 
@@ -59,12 +59,12 @@
 
             <div class="row">
                 <div class="small-12 large-4 columns text-center">
-                    <a class="tiny button round" href="{{ path('zimzim_categoryproduct_category') }}">
+                    <a class="tiny button" href="{{ path('zimzim_categoryproduct_category') }}">
                         {{ 'button.return'|trans }}
                     </a>
                 </div>
                 <div class="small-12 large-4 columns text-center">
-                    <a class="tiny button round"
+                    <a class="tiny button"
                        href="{{ path('zimzim_categoryproduct_category_edit', { 'id': entity.id }) }}">
                         {{ 'button.update'|trans }}
                     </a>

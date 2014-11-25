@@ -5,7 +5,7 @@ namespace ZIMZIM\CategoryProductBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ZIMZIMCollectionType extends AbstractType
+class ZIMZIMImageType extends AbstractType
 {
 
     /**
@@ -14,19 +14,13 @@ class ZIMZIMCollectionType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
-            array(
-                'attr' => array(
-                    'class' => 'zimzim-panel',
-                    'no-label' => 'no-label',
-                ),
-                'cascade_validation' => true
-            )
+            array('required' => false)
         );
     }
 
     public function getParent()
     {
-        return 'collection';
+        return 'file';
     }
 
     /**
@@ -34,6 +28,6 @@ class ZIMZIMCollectionType extends AbstractType
      */
     public function getName()
     {
-        return 'zimzim_categoryproductbundle_zimzimcollection';
+        return 'zimzim_categoryproductbundle_zimzimimage';
     }
 }

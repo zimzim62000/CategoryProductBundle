@@ -3,6 +3,7 @@ ZIMZIMCategoryProduct:
     slug: "Lien"
     image: "Image"
     parent: "Parent"
+    updatedat: "Modifier le"
     button:
         create: "Créer"
         update: "Modifier"

@@ -46,24 +46,13 @@ class MainController extends Controller
             $grid->setSource($source);
         }
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
-
         $data['manager']->getRepository()->getList($source);
 
+        $object = $this;
+
         $source->manipulateRow(
-            function (Row $row) {
-                if (method_exists($row->getEntity(), 'getListAttrImg')) {
-                    foreach ($row->getEntity()->getListAttrImg() as $attr) {
-                        $method = 'get' . ucfirst($attr);
-                        $methodWeb = 'getWeb' . ucfirst($attr);
-                        if ($row->getEntity()->{$method}() !== null) {
-                            $row->setField(
-                                $attr,
-                                '<img style="max-height:50px;"  src="/' . $row->getEntity()->{$methodWeb}() . '"/>'
-                            );
-                        }
-                    }
-                }
+            function (Row $row) use ($object) {
+                $object->manipulateRow($row);
 
                 return $row;
             }
@@ -72,6 +61,25 @@ class MainController extends Controller
         $this->grid = $grid;
 
         return $this->grid->getGridResponse($data['dir'] . ':index.html.twig');
+    }
+
+    protected function manipulateRow(Row $row)
+    {
+
+        if (method_exists($row->getEntity(), 'getListAttrImg')) {
+            foreach ($row->getEntity()->getListAttrImg() as $attr) {
+                $method = 'get' . ucfirst($attr);
+                $methodWeb = 'getWeb' . ucfirst($attr);
+                if ($row->getEntity()->{$method}() !== null) {
+                    $row->setField(
+                        $attr,
+                        '<img style="max-height:50px;"  src="/' . $row->getEntity()->{$methodWeb}() . '"/>'
+                    );
+                }
+            }
+        }
+
+        return $row;
     }
 
     protected function createSuccess()

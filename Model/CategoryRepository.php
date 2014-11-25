@@ -15,6 +15,14 @@ class CategoryRepository extends NestedTreeRepository implements ApyDataGridRepo
 {
     public function getList($source)
     {
+        $tableAlias = $source->getTableAlias();
+        $source->manipulateQuery(
+            function ($query) use ($tableAlias)
+            {
+                $query->addOrderBy($tableAlias . '.root', 'ASC')
+                    ->addOrderBy($tableAlias . '.lft', 'ASC');
+            }
+        );
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         return $source;
     }

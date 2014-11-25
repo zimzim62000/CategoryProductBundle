@@ -11,8 +11,8 @@
 {% endblock title %}
 
 {% block metadescription %}
-    {% if entity.title != null %}
-        {{ entity.title }}
+    {% if entity.description != null %}
+        {{ entity.description }}
     {% else %}
         {{ parent() }}
     {% endif %}
@@ -25,13 +25,12 @@
         {% if entity.Parents|length != 0 %}
             <nav class="breadcrumbs">
                 {% for key, parent in entity.Parents if parent != null %}
-                    <a {% if parent.id == entity.id %} class="current"{% endif %}
-                            {% if parent.slug == "" %}
-                                href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                            {% else %}
-                                href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':parent.slug}) }}"
-                            {% endif %}
-                            >
+                    {% if parent.slug == "" %}
+                        {% set linkparent = path('zimzim_categoryproduct_category_listslugnull') %}
+                    {% else %}
+                        {% set linkparent = path('zimzim_categoryproduct_category_listslug', {'slug':parent.slug}) %}
+                    {% endif %}
+                    <a {% if parent.id == entity.id %} class="current"{% endif %} href="{{ linkparent }}">
                         {{ parent.name }}
                     </a>
                 {% endfor %}
@@ -39,28 +38,24 @@
         {% endif %}
     {% endblock breadcrumbs %}
 
+    {% if entity.slug == "" %}
+        {% set linkentity = path('zimzim_categoryproduct_category_listslugnull') %}
+    {% else %}
+        {% set linkentity = path('zimzim_categoryproduct_category_listslug', {'slug':entity.slug}) %}
+    {% endif %}
+
     <div class="row">
         <div class="small-10 small-centered columns">
             <div class="row">
                 <div class="medium-2 columns hide-for-small">
                     <div class="title-category nomargin">
-                        <a {% if entity.slug == "" %}
-                            href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                        {% else %}
-                            href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':entity.slug}) }}"
-                        {% endif %}
-                                >
+                        <a href="{{ linkentity }}">
                             <img src="/{{ entity.webpath }}" class="full-width"/>
                         </a>
                     </div>
                 </div>
                 <div class="medium-10 columns">
-                    <a {% if entity.slug == "" %}
-                        href="{{ path('zimzim_categoryproduct_category_listslugnull') }}"
-                    {% else %}
-                        href="{{ path('zimzim_categoryproduct_category_listslug', {'slug':entity.slug}) }}"
-                    {% endif %}
-                            >
+                    <a href="{{ linkentity }}">
                         <h1 class="text-center title-category nomargin">
                             {{ entity.name }}
                         </h1>

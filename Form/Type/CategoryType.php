@@ -52,11 +52,6 @@ class CategoryType extends AbstractType
                     'label' => 'admincategory.entity.content',
                     'translation_domain' => 'ZIMZIMCategoryProduct'
                 )
-            )
-            ->add(
-                'file',
-                null,
-                array('label' => 'admincategory.entity.image', 'translation_domain' => 'ZIMZIMCategoryProduct')
             );
 
 
@@ -66,6 +61,25 @@ class CategoryType extends AbstractType
                 $category = $event->getData();
                 $form = $event->getForm();
                 $id_category = null;
+
+                $url = '';
+                if ($category->getId() !== null) {
+                    $url = $category->getWebPath();
+                }
+
+                $form->add(
+                    'file',
+                    'zimzim_categoryproductbundle_zimzimimage',
+                    array(
+                        'label' => 'admincategory.entity.image',
+                        'translation_domain' => 'ZIMZIMCategoryProduct',
+                        'attr' => array(
+                            'url' => $url,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
+
                 if ($category && $category->getId() !== null) {
                     $id_category = $category->getId();
                     if ($id_category === 1) {
@@ -80,7 +94,7 @@ class CategoryType extends AbstractType
                     array(
                         'class' => $this->categoryManager->getClassName(),
                         'property' => 'indentedTitle',
-                        'query_builder' => function ($repository) use ($id_category) {
+                        'query_builder' => function () use ($id_category, $repository) {
                             $query = $repository->createQueryBuilder('c');
                             if (isset($id_category)) {
                                 $query->where('c.id <> :category')

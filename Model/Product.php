@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
@@ -32,7 +33,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @Gedmo\Translatable
      *
-     * @GRID\Column(operatorsVisible=false)
+     * @GRID\Column(operatorsVisible=false, title="ZIMZIMCategoryProduct.name")
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
@@ -89,7 +90,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @ORM\Column(name="updated_at", type="datetime")
      *
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     * @GRID\Column(operatorsVisible=false, title="ZIMZIMCategoryProduct.updatedat")
      */
     protected $updatedAt;
 
@@ -111,7 +112,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
     public function __construct()
     {
-        $this->categoryproducts = new Doctrine\Common\Collections\ArrayCollection();
+        $this->categoryproducts = new ArrayCollection();
     }
 
     /****************************************** image / file ************************************************/
@@ -124,7 +125,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true, name="file1")
      *
-     * @GRID\Column(operatorsVisible=false, safe=false)
+     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
     public $path1;
 
@@ -154,7 +155,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true, name="file2")
      *
-     * @GRID\Column(operatorsVisible=false, safe=false)
+     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
     public $path2;
 
@@ -183,7 +184,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true, name="file3")
-     * @GRID\Column(operatorsVisible=false, safe=false)
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
     public $path3;
 
@@ -212,7 +213,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true, name="file4")
-     * @GRID\Column(operatorsVisible=false, safe=false)
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
     public $path4;
 

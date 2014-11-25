@@ -8,7 +8,7 @@ interface ConfigurationManagerInterface{
 
     public function getClassName();
 
-    public function getDirname();
+    public function getRepositoryName();
 
-    public function getFormname();
+    public function getFormName();
 }
