@@ -1,0 +1,41 @@
+{% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
+
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
+
+{% block title %}
+    {{ 'adminitemhome.index.title'|trans }}
+{% endblock title %}
+
+{% block page %}
+    <div class="row">
+        <div class="small-10 columns">
+            <h1 class="text-center headerpagehome">
+                {{ 'adminitemhome.index.title'|trans }}
+            </h1>
+        </div>
+        <div class="small-2 columns">
+            <h1 class="text-center headerpagehome">
+                <button data-dropdown="drop" aria-controls="drop" aria-expanded="false"
+                        class="button tiny round dropdown">
+                    {{ 'button.create'|trans }}
+                </button>
+                <br>
+                <ul id="drop" data-dropdown-content class="f-dropdown" role="menu" aria-hidden="false" tabindex="-1">
+                    <li>
+                        <a class="round" href="{{ path('zimzim_categoryproduct_itemhome_new', {'type': 'category'}) }}">
+                            {{ 'adminitemhome.index.addcategory'|trans }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="round" href="{{ path('zimzim_categoryproduct_itemhome_new', {'type': 'product'}) }}">
+                            {{ 'adminitemhome.index.addproduct'|trans }}
+                        </a>
+                    </li>
+                </ul>
+            </h1>
+        </div>
+    </div>
+
+    {{ grid(grid) }}
+
+{% endblock %}

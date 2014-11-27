@@ -26,14 +26,17 @@ class CategoryProduct
      * @var Category
      *
      * @Gedmo\SortableGroup
-     * @ORM\Column(name="category", type="integer")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="categoryproducts", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=FALSE)
      *
      **/
     protected $category;
 
     /**
      * @var Product
-     * @ORM\Column(name="product", type="integer")
+     *
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="categoryproducts", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id", nullable=FALSE)
      *
      **/
     protected $product;
@@ -130,4 +133,3 @@ class CategoryProduct
         return $this->position;
     }
 }
-

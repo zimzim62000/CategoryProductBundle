@@ -21,7 +21,7 @@ abstract class Manager
         $this->formName = $configuration->getFormName();
     }
 
-    public function createEntity()
+    public function createEntity($type)
     {
         return new $this->className();
     }

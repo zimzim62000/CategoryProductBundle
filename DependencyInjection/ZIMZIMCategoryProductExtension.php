@@ -32,6 +32,12 @@ class ZIMZIMCategoryProductExtension extends Extension
         $container->setParameter($this->getAlias().'.product_class', $config['product_class']);
         $container->setParameter($this->getAlias().'.product_repo', $config['product_repo']);
         $container->setParameter($this->getAlias().'.product_form', $config['product_form']);
+        $container->setParameter($this->getAlias().'.itemhome_class', $config['itemhome_class']);
+        $container->setParameter($this->getAlias().'.itemhome_repo', $config['itemhome_repo']);
+        $container->setParameter($this->getAlias().'.itemhome_form', $config['itemhome_form']);
+        $container->setParameter($this->getAlias().'.itemhome_repo', $config['itemhome_repo']);
+        $container->setParameter($this->getAlias().'.itemhome_data.category', $config['itemhome_data']['category']);
+        $container->setParameter($this->getAlias().'.itemhome_data.product', $config['itemhome_data']['product']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

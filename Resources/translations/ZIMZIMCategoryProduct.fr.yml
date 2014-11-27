@@ -42,6 +42,21 @@ admincategoryproduct:
     entity:
         product: "Produit"
         position: "Position"
+adminitemhome:
+    index:
+        title: "Administration du Carrousel"
+        addproduct: "Ajouter un produit"
+        addcategory: "Ajouter une categories"
+    show:
+        title: "descriptif de la page : %name%"
+    new:
+        title: "Création d'un element du carrousel"
+    update:
+        title: "Modification de l'element du carrousel : %name%"
+    entity:
+        id: "Id"
+        title: "Titre"
+        desc: "Description"
 home:
     index:
         title: "Page de presentation des categories et produits mis en valeur"

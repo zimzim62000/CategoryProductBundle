@@ -1,17 +1,18 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Entity;
+namespace ZIMZIM\CategoryProductBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+
 /**
  * ItemHome
  *
- * @ORM\Table(name="default_home")
- * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ * @ORM\MappedSuperclass
+ *
  */
-class ItemHome
+abstract class ItemHome
 {
     /**
      * @var integer
@@ -20,7 +21,7 @@ class ItemHome
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var integer
@@ -29,15 +30,9 @@ class ItemHome
      *
      * @ORM\Column(name="position", type="integer")
      */
-    private $position;
+    protected $position;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
+    use TitleDescriptionTrait;
 
     /**
      * Get id
@@ -72,29 +67,4 @@ class ItemHome
     {
         return $this->position;
     }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return ItemHome
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
 }
-

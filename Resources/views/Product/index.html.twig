@@ -9,21 +9,20 @@
 
 {% block page %}
     <div class="row">
-        <div class="small-12 columns">
+        <div class="small-10 columns">
             <h1 class="text-center headerpagehome">
                 {{ 'adminproduct.index.title'|trans }}
             </h1>
         </div>
-    </div>
-    <div class="row">
-        <div class="small-12 columns">
-            <a class="tiny button" href="{{ path('zimzim_categoryproduct_product_new') }}">
-                {{ 'button.create'|trans }}
-            </a>
+        <div class="small-2 columns">
+            <h1 class="text-center headerpagehome">
+                <a class="tiny button" href="{{ path('zimzim_categoryproduct_product_new') }}">
+                    {{ 'button.create'|trans }}
+                </a>
+            </h1>
         </div>
     </div>
 
     {{ grid(grid) }}
 
 {% endblock %}
-

@@ -22,9 +22,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->integerNode('max_element')
-                    ->defaultValue(5)
-                ->end()
+                ->integerNode('max_element')->defaultValue(5)->end()
                 ->scalarNode('category_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('category_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\CategoryRepository')->end()
                 ->scalarNode('category_form')->defaultValue('zimzim_categoryproductbundle_categorytype')->end()
@@ -34,6 +32,16 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('product_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('product_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ProductRepository')->end()
                 ->scalarNode('product_form')->defaultValue('zimzim_categoryproductbundle_producttype')->end()
+                ->scalarNode('itemhome_class')->isRequired()->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHome')->end()
+                ->scalarNode('itemhome_repo')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeRepository')->end()
+                ->scalarNode('itemhome_form')->defaultValue('zimzim_categoryproductbundle_itemhometype')->end()
+                ->arrayNode('itemhome_data')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('category')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeCategory')->cannotBeEmpty()->end()
+                        ->scalarNode('product')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeProduct')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

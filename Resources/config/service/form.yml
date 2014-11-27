@@ -18,7 +18,8 @@ services:
         tags:
             - { name: form.type, alias: zimzim_categoryproductbundle_producttype }
 
-    zimzim_categoryproduct.form.type.zimzimcollectionformtype:
-        class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMCollectionType
+    zimzim_categoryproduct.form.productform:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ItemHomeType
+        arguments: [ @zimzim_categoryproduct_itemhomemanager ]
         tags:
-            - { name: form.type, alias: zimzim_categoryproductbundle_zimzimcollection }
+            - { name: form.type, alias: zimzim_categoryproductbundle_itemhometype }

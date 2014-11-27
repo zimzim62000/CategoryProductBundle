@@ -1,26 +1,5 @@
 services:
 
-    zimzim_categoryproduct_configuration_category:
-        class: "ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationCategory"
-        arguments:
-            - %zimzim_category_product.category_class%
-            - %zimzim_category_product.category_repo%
-            - %zimzim_category_product.category_form%
-
-    zimzim_categoryproduct_configuration_categoryproduct:
-        class: "ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationCategoryProduct"
-        arguments:
-            - %zimzim_category_product.categoryproduct_class%
-            - %zimzim_category_product.categoryproduct_repo%
-            - %zimzim_category_product.categoryproduct_form%
-
-    zimzim_categoryproduct_configuration_product:
-        class: "ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationProduct"
-        arguments:
-            - %zimzim_category_product.product_class%
-            - %zimzim_category_product.product_repo%
-            - %zimzim_category_product.product_form%
-
     zimzim_categoryproduct_categorymanager:
         class: "ZIMZIM\CategoryProductBundle\Doctrine\CategoryManager"
         arguments:
@@ -38,3 +17,10 @@ services:
         arguments:
             - @doctrine.orm.entity_manager
             - @zimzim_categoryproduct_configuration_product
+
+    zimzim_categoryproduct_itemhomemanager:
+        class: ZIMZIM\CategoryProductBundle\Doctrine\ItemHomeManager
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @zimzim_categoryproduct_configuration_itemhome
+            - @zimzim_categoryproduct_factory_itemhome

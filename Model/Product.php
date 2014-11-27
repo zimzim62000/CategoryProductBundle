@@ -633,6 +633,4 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
         return $this;
     }
-
 }
-

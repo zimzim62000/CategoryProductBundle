@@ -1,0 +1,6 @@
+services:
+    zimzim_categoryproduct_factory_itemhome:
+        class: "ZIMZIM\CategoryProductBundle\Factory\ItemHomeFactory"
+        arguments:
+            - %zimzim_category_product.itemhome_data.category%
+            - %zimzim_category_product.itemhome_data.product%

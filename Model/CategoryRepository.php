@@ -3,6 +3,7 @@
 namespace ZIMZIM\CategoryProductBundle\Model;
 
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 /**
@@ -17,7 +18,7 @@ class CategoryRepository extends NestedTreeRepository implements ApyDataGridRepo
     {
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
-            function ($query) use ($tableAlias)
+            function (QueryBuilder $query) use ($tableAlias)
             {
                 $query->addOrderBy($tableAlias . '.root', 'ASC')
                     ->addOrderBy($tableAlias . '.lft', 'ASC');

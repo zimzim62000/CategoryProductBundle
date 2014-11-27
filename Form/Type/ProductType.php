@@ -46,7 +46,6 @@ class ProductType extends AbstractType
             function (FormEvent $event) {
                 $product = $event->getData();
                 $form = $event->getForm();
-                $id_category = null;
 
                 for ($i = 1; $i < 5; $i++) {
                     $tmpFileName = '';
