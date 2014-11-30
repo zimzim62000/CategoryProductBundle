@@ -55,8 +55,12 @@ adminitemhome:
         title: "Modification de l'element du carrousel : %name%"
     entity:
         id: "Id"
+        name: "Nom"
         title: "Titre"
-        desc: "Description"
+        description: "Description"
+        position: "Position"
+        category: "Category"
+        product: "Produit"
 home:
     index:
         title: "Page de presentation des categories et produits mis en valeur"

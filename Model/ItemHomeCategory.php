@@ -17,7 +17,7 @@ class ItemHomeCategory extends ItemHome
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="id_category", referencedColumnName="id", nullable=FALSE)
+     * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
      *
      */
     protected $category;

@@ -18,8 +18,20 @@ services:
         tags:
             - { name: form.type, alias: zimzim_categoryproductbundle_producttype }
 
-    zimzim_categoryproduct.form.productform:
+    zimzim_categoryproduct.form.itemhomeform:
         class: ZIMZIM\CategoryProductBundle\Form\Type\ItemHomeType
         arguments: [ @zimzim_categoryproduct_itemhomemanager ]
         tags:
             - { name: form.type, alias: zimzim_categoryproductbundle_itemhometype }
+
+    zimzim_categoryproduct.form.itemhomecategoryform:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ItemHomeCategoryType
+        arguments: [ @zimzim_categoryproduct_itemhomemanager ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_itemhomecategorytype }
+
+    zimzim_categoryproduct.form.itemhomeproductform:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ItemHomeProductType
+        arguments: [ @zimzim_categoryproduct_itemhomemanager ]
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_itemhomeproducttype }

@@ -1,5 +1,6 @@
 ZIMZIMCategoryProduct:
     name: "Nom"
+    position: "Position"
     slug: "Lien"
     image: "Image"
     parent: "Parent"

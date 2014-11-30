@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use ZIMZIM\CategoryProductBundle\Doctrine\ItemHomeManager;
 
-class ItemHomeType extends AbstractType
+class ItemHomeProductType extends AbstractType
 {
     private $itemHomeManager;
 
@@ -24,24 +24,9 @@ class ItemHomeType extends AbstractType
     {
         $builder
             ->add(
-                'name',
+                'product',
                 null,
-                array('label' => 'adminitemhome.entity.name', 'translation_domain' => 'ZIMZIMCategoryProduct')
-            )
-            ->add(
-                'title',
-                null,
-                array('label' => 'adminitemhome.entity.title', 'translation_domain' => 'ZIMZIMCategoryProduct')
-            )
-            ->add(
-                'description',
-                null,
-                array('label' => 'adminitemhome.entity.description', 'translation_domain' => 'ZIMZIMCategoryProduct')
-            )
-            ->add(
-                'position',
-                null,
-                array('label' => 'adminitemhome.entity.position', 'translation_domain' => 'ZIMZIMCategoryProduct')
+                array('label' => 'adminitemhome.entity.product', 'translation_domain' => 'ZIMZIMCategoryProduct')
             );
     }
 
@@ -52,7 +37,7 @@ class ItemHomeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => $this->itemHomeManager->getClassName(null),
+                'data_class' => $this->itemHomeManager->getClassName('product'),
                 'attr' => array(
                 ),
                 'cascade_validation' => true,
@@ -66,6 +51,10 @@ class ItemHomeType extends AbstractType
      */
     public function getName()
     {
-        return 'zimzim_categoryproductbundle_itemhometype';
+        return 'zimzim_categoryproductbundle_itemhomeproducttype';
+    }
+
+    public function getParent(){
+        return $this->itemHomeManager->getFormName(null);
     }
 }

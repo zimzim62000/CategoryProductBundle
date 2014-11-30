@@ -21,7 +21,7 @@ abstract class Manager
         $this->formName = $configuration->getFormName();
     }
 
-    public function createEntity($type)
+    public function createEntity()
     {
         return new $this->className();
     }
@@ -34,7 +34,6 @@ abstract class Manager
 
     public function find($id)
     {
-
         return $this->getRepository()->find($id);
     }
 
@@ -53,6 +52,4 @@ abstract class Manager
     {
         return $this->formName;
     }
-
-
 }

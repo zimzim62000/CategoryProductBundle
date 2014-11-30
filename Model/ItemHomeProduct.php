@@ -17,7 +17,7 @@ class ItemHomeProduct extends ItemHome
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product")
-     * @ORM\JoinColumn(name="id_product", referencedColumnName="id", nullable=FALSE)
+     * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
      *
      */
     protected $product;

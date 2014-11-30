@@ -1,0 +1,17 @@
+{% if entity.id == "" %}
+    {% set linkentity = '' %}
+{% else %}
+    {% set linkentity = '' %}
+{% endif %}
+
+<li class="category-box">
+    <div class="fullfull">
+        <img class="img-medium" src="/{{ entity.id }}"
+             alt="{{ entity.name }} - {{ entity.description }}" />
+        <h2 class="text-center title-categorybox nomargin">
+            <a href="{{ linkentity }}">
+                {{ entity.name }}
+            </a>
+        </h2>
+    </div>
+</li>

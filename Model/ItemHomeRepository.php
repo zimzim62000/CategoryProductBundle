@@ -15,8 +15,6 @@ abstract class ItemHomeRepository extends SortableRepository implements ApyDataG
 {
     public function getList($source)
     {
-
-
         return $source;
     }
 }

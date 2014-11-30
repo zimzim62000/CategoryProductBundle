@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Controller;
 
+use APY\DataGridBundle\Grid\Source\Entity;
 use Symfony\Component\HttpFoundation\Request;
 use ZIMZIM\CategoryProductBundle\Model\ItemHome;
 
@@ -11,6 +12,18 @@ use ZIMZIM\CategoryProductBundle\Model\ItemHome;
  */
 class ItemHomeController extends MainController
 {
+
+    public function indexPublicAction(){
+
+        $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
+
+        $entities = $manager->findByPosition();
+
+        return $this->render(
+            'ZIMZIMCategoryProductBundle:ItemHome:indexpublic.html.twig',
+            array('entities' => $entities)
+        );
+    }
 
     /**
      * Lists all ItemHome entities.
@@ -33,6 +46,16 @@ class ItemHomeController extends MainController
         return $this->grid->getGridResponse('ZIMZIMCategoryProductBundle:ItemHome:index.html.twig');
     }
 
+    protected function setSource($data)
+    {
+        $type = 'default';
+        if (isset($data['type'])) {
+            $type = $data['type'];
+        }
+
+        return new Entity($data['manager']->getClassName(null), $type);
+    }
+
     /**
      * Creates a new ItemHome entity.
      *
@@ -41,7 +64,7 @@ class ItemHomeController extends MainController
     {
         $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
 
-        $entity = new $manager->createEntity($type);
+        $entity = $manager->createEntity($type);
         $form = $this->createCreateForm($entity, $manager, $type);
         $form->handleRequest($request);
 
@@ -116,9 +139,9 @@ class ItemHomeController extends MainController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:ItemHome')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ItemHome entity.');
@@ -141,15 +164,15 @@ class ItemHomeController extends MainController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:ItemHome')->find($id);
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ItemHome entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $manager);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render(
@@ -169,10 +192,10 @@ class ItemHomeController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ItemHome $entity)
+    private function createEditForm(ItemHome $entity, $manager)
     {
         $form = $this->createForm(
-            new ItemHomeType(),
+            $manager->getFormName($entity::TYPE_ITEMHOME),
             $entity,
             array(
                 'action' => $this->generateUrl(
@@ -196,14 +219,16 @@ class ItemHomeController extends MainController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('ZIMZIMCategoryProductBundle:ItemHome')->find($id);
+        $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
+
+        $entity = $manager->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ItemHome entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $manager);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -234,7 +259,8 @@ class ItemHomeController extends MainController
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('ZIMZIMCategoryProductBundle:ItemHome')->find($id);
+            $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
+            $entity = $manager->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find ItemHome entity.');
@@ -245,7 +271,7 @@ class ItemHomeController extends MainController
             $this->deleteSuccess();
         }
 
-        return $this->redirect($this->generateUrl('zimzim_categoryproduct_itemhome'));
+        return $this->redirect($this->generateUrl('zimzim_categoryproduct_adminitemhome'));
     }
 
     /**

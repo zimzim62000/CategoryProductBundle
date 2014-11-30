@@ -7,10 +7,13 @@ use Doctrine\ORM\EntityManager;
 use ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationManagerInterface;
 use ZIMZIM\CategoryProductBundle\Factory\ItemHomeFactory;
 
-class ItemHomeManager extends Manager
+class ItemHomeManager
 {
-    public function __construct(EntityManager $entityManager, ConfigurationManagerInterface $configuration, ItemHomeFactory $itemHomeFactory)
-    {
+    public function __construct(
+        EntityManager $entityManager,
+        ConfigurationManagerInterface $configuration,
+        ItemHomeFactory $itemHomeFactory
+    ) {
         $this->entityManager = $entityManager;
         $this->className = $configuration->getClassName();
         $this->repositoryName = $configuration->getRepositoryName();
@@ -18,7 +21,39 @@ class ItemHomeManager extends Manager
         $this->itemHomeFactory = $itemHomeFactory;
     }
 
-    public function createEntity($type){
-        return $this->itemHomeFactory->create($type);
+    public function getClassName($type)
+    {
+        if (isset($type)) {
+            return $this->itemHomeFactory->getCLassName($type);
+        }
+
+        return $this->className;
+    }
+
+    public function getFormName($type)
+    {
+        if (isset($type)) {
+            return $this->itemHomeFactory->getFormName($type);
+        }
+
+        return $this->formName;
+    }
+
+    public function getRepository()
+    {
+        return $this->entityManager->getRepository($this->getClassName(null));
+    }
+
+    public function createEntity($type)
+    {
+        return $this->itemHomeFactory->createEntity($type);
+    }
+
+    public function find($id){
+        return $this->getRepository()->find($id);
+    }
+
+    public function findByPosition(){
+        return $this->getRepository()->findBy(array(), array('position' => 'ASC'));
     }
 }

@@ -38,8 +38,10 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('itemhome_data')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('category')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeCategory')->cannotBeEmpty()->end()
-                        ->scalarNode('product')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeProduct')->cannotBeEmpty()->end()
+                        ->scalarNode('category_class')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeCategory')->cannotBeEmpty()->end()
+                        ->scalarNode('category_form')->defaultValue('zimzim_categoryproductbundle_itemhomecategorytype')->cannotBeEmpty()->end()
+                        ->scalarNode('product_class')->defaultValue('ZIMZIM\CategoryProductBundle\Model\ItemHomeProduct')->cannotBeEmpty()->end()
+                        ->scalarNode('product_form')->defaultValue('zimzim_categoryproductbundle_itemhomeproducttype')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
             ->end();

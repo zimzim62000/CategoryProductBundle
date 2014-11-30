@@ -1,5 +1,5 @@
-zimzim_categoryproduct_home:
-    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/home.yml"
+zimzim_categoryproduct_itemhome:
+    resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/itemhome.yml"
     prefix:   /
 
 zimzim_categoryproduct_admincategory:

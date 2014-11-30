@@ -1,0 +1,29 @@
+{% extends 'ZIMZIMCategoryProductBundle::layout.html.twig' %}
+
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
+
+{% block title %}
+    {{ 'home.index.title'|trans }}
+{% endblock title %}
+
+{% block page %}
+
+    <div class="row">
+        <div class="small-12 columns">
+            <h1 class="headertitle text-center">
+                {{ 'home.index.title'|trans }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="row full-width">
+        <div class="small-10 small-centered columns">
+            <ul class="small-block-grid-1 medium-block-grid-3 large-block-grid-4">
+                {% for entity in entities %}
+                    {% include 'ZIMZIMCategoryProductBundle:ItemHome:include/itemhomebox.html.twig' with {'entity': entity} %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock page %}

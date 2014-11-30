@@ -2,12 +2,14 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 trait TitleDescriptionTrait{
 
     /**
      * @var string
      *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
@@ -15,6 +17,7 @@ trait TitleDescriptionTrait{
     /**
      * @var string
      *
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      * @ORM\Column(name="description", type="text")
      */
     protected  $description;

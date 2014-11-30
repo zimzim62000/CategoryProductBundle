@@ -19,12 +19,7 @@ class MainController extends Controller
 
         $grid = $this->get('grid');
 
-        $type = 'default';
-        if (isset($data['type'])) {
-            $type = $data['type'];
-        }
-
-        $source = new Entity($data['manager']->getClassName(), $type);
+        $source = $this->setSource($data);
 
         if (isset($data['show'])) {
             $rowAction = new RowAction("ZIMZIMCategoryProduct.button.show", $data['show']);
@@ -61,6 +56,16 @@ class MainController extends Controller
         $this->grid = $grid;
 
         return $this->grid->getGridResponse($data['dir'] . ':index.html.twig');
+    }
+
+    protected function setSource($data)
+    {
+        $type = 'default';
+        if (isset($data['type'])) {
+            $type = $data['type'];
+        }
+
+        return new Entity($data['manager']->getClassName(), $type);
     }
 
     protected function manipulateRow(Row $row)
