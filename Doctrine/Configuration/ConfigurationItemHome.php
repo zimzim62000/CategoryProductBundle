@@ -14,4 +14,8 @@ class ConfigurationItemHome extends Configuration
         $this->repositoryName = $repositoryName;
         $this->formName = $formName;
     }
+
+    public function getClass(){
+        return null;
+    }
 }

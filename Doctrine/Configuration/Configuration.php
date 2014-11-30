@@ -8,11 +8,16 @@ class Configuration implements ConfigurationManagerInterface
     protected $repositoryName;
     protected $formName;
 
-    public function __construct($className, $repositoryName, $formName)
+    public function __construct($class, $repositoryName, $formName)
     {
-        $this->className = $className;
+        $this->class = $class;
+        $this->className = get_class($this->class);
         $this->repositoryName = $repositoryName;
         $this->formName = $formName;
+    }
+
+    public function getClass(){
+        return $this->class;
     }
 
     /**
@@ -38,6 +43,4 @@ class Configuration implements ConfigurationManagerInterface
     {
         return $this->repositoryName;
     }
-
-
 }

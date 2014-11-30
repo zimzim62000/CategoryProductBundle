@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
@@ -13,8 +14,9 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  */
 abstract class ItemHomeRepository extends SortableRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList($source)
+    public function getList(Entity $source)
     {
+        $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         return $source;
     }
 }

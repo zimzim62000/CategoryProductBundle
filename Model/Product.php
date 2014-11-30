@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Validator\Constraints as Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
@@ -446,30 +447,71 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     {
         if (isset($this->file1)) {
             if (null !== $this->file1) {
-                $this->path1 = urlencode(
-                        str_replace('.' . $this->file1->guessExtension(), '', $this->file1->getClientOriginalName())
-                    ) . '.' . $this->file1->guessExtension();
+
+                $oldFile = $this->getAbsolutePath1();
+                if ($oldFile && isset($this->path1)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file1->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file1->getClientOriginalName());
+
+                $this->path1 = urlencode($filename) . '.' . $this->file1->guessExtension();
+
             }
         }
         if (isset($this->file2)) {
             if (null !== $this->file2) {
-                $this->path2 = urlencode(
-                        str_replace('.' . $this->file2->guessExtension(), '', $this->file2->getClientOriginalName())
-                    ) . '.' . $this->file2->guessExtension();
+
+                $oldFile = $this->getAbsolutePath2();
+                if ($oldFile && isset($this->path2)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file2->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file1->getClientOriginalName());
+
+                $this->path2 = urlencode($filename) . '.' . $this->file2->guessExtension();
             }
         }
         if (isset($this->file3)) {
             if (null !== $this->file3) {
-                $this->path3 = urlencode(
-                        str_replace('.' . $this->file3->guessExtension(), '', $this->file3->getClientOriginalName())
-                    ) . '.' . $this->file3->guessExtension();
+
+                $oldFile = $this->getAbsolutePath3();
+                if ($oldFile && isset($this->path3)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file3->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file3->getClientOriginalName());
+
+                $this->path3 = urlencode($filename) . '.' . $this->file3->guessExtension();
             }
         }
         if (isset($this->file4)) {
             if (null !== $this->file4) {
-                $this->path4 = urlencode(
-                        str_replace('.' . $this->file4->guessExtension(), '', $this->file4->getClientOriginalName())
-                    ) . '.' . $this->file4->guessExtension();
+
+                $oldFile = $this->getAbsolutePath4();
+                if ($oldFile && isset($this->path4)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file4->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file4->getClientOriginalName());
+
+                $this->path4 = urlencode($filename) . '.' . $this->file4->guessExtension();
             }
         }
     }

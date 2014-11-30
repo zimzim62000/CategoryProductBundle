@@ -61,6 +61,7 @@ adminitemhome:
         position: "Position"
         category: "Category"
         product: "Produit"
+        image: "Image"
 home:
     index:
         title: "Page de presentation des categories et produits mis en valeur"

@@ -11,19 +11,22 @@ abstract class Manager
     protected $repositoryName;
     protected $formName;
     protected $entityManager;
+    protected $configuration;
 
 
     public function __construct(EntityManager $entityManager, ConfigurationManagerInterface $configuration)
     {
         $this->entityManager = $entityManager;
+
         $this->className = $configuration->getClassName();
         $this->repositoryName = $configuration->getRepositoryName();
         $this->formName = $configuration->getFormName();
+        $this->configuration = $configuration;
     }
 
     public function createEntity()
     {
-        return new $this->className();
+        return clone $this->configuration->getCLass();
     }
 
     public function getRepository()

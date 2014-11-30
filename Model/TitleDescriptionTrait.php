@@ -3,11 +3,15 @@
 namespace ZIMZIM\CategoryProductBundle\Model;
 
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 trait TitleDescriptionTrait{
 
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      * @ORM\Column(name="title", type="string", length=255)
@@ -16,6 +20,8 @@ trait TitleDescriptionTrait{
 
     /**
      * @var string
+     *
+     * @Gedmo\Translatable
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      * @ORM\Column(name="description", type="text")

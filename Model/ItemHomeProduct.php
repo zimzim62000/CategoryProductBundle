@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ItemHomeProduct extends ItemHome
 {
+    const TYPE_ITEMHOME = 'product';
+
     /**
      * @var Product
      *

@@ -1,0 +1,13 @@
+services:
+    zimzim_category_product.entity.itemhome:
+        class: "%zimzim_category_product.itemhome_class%"
+    zimzim_category_product.entity.itemhomecategory:
+        class: "%zimzim_category_product.itemhome_data.category_class%"
+    zimzim_category_product.entity.itemhomeproduct:
+        class: "%zimzim_category_product.itemhome_data.product_class%"
+    zimzim_category_product.entity.category:
+        class: "%zimzim_category_product.category_class%"
+    zimzim_category_product.entity.product:
+        class: "%zimzim_category_product.product_class%"
+    zimzim_category_product.entity.categoryproduct:
+        class: "%zimzim_category_product.categoryproduct_class%"

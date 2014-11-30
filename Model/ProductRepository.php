@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
 
@@ -13,7 +14,7 @@ use Doctrine\ORM\EntityRepository;
  */
 abstract class ProductRepository extends EntityRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList($source)
+    public function getList(Entity $source)
     {
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
         return $source;

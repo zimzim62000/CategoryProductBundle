@@ -155,9 +155,19 @@ class Category implements Translatable, ApyDataGridFilePathInterface
     {
         if (isset($this->file)) {
             if (null !== $this->file) {
-                $this->path = urlencode(
-                        str_replace('.' . $this->file->guessExtension(), '', $this->file->getClientOriginalName())
-                    ) . '.' . $this->file->guessExtension();
+
+                $oldFile = $this->getAbsolutePath();
+                if ($oldFile && isset($this->path)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file->getClientOriginalName());
+
+                $this->path = urlencode($filename) . '.' . $this->file->guessExtension();
             }
         }
     }
@@ -667,7 +677,7 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      */
     public function setCategoryproducts($categoryproducts)
     {
-        foreach($categoryproducts as $categoryproduct){
+        foreach ($categoryproducts as $categoryproduct) {
             $categoryproduct->setCategory($this);
         }
         $this->categoryproducts = $categoryproducts;
@@ -675,13 +685,13 @@ class Category implements Translatable, ApyDataGridFilePathInterface
         return $this;
     }
 
-    public function addCategoryproducts(CategoryProduct $categoryproduct){
+    public function addCategoryproducts(CategoryProduct $categoryproduct)
+    {
 
         if (!$this->categoryproducts->contains($categoryproduct)) {
             $this->categoryproducts->add($categoryproduct);
         }
+
         return $this;
     }
-
-
 }

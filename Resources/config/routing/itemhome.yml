@@ -1,4 +1,4 @@
-zimzim_categoryproduct_itemhome:
+zimzim_categoryproduct_itemhomepublic:
     path:     /
     defaults: { _controller: "ZIMZIMCategoryProductBundle:ItemHome:indexpublic"}
     requirements:

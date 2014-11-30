@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Model;
 
+use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
@@ -14,7 +15,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class CategoryRepository extends NestedTreeRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList($source)
+    public function getList(Entity $source)
     {
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(

@@ -232,6 +232,8 @@ class ItemHomeController extends MainController
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->preUpload();
+
             $this->updateSuccess();
             $em->flush();
 
@@ -271,7 +273,7 @@ class ItemHomeController extends MainController
             $this->deleteSuccess();
         }
 
-        return $this->redirect($this->generateUrl('zimzim_categoryproduct_adminitemhome'));
+        return $this->redirect($this->generateUrl('zimzim_categoryproduct_itemhome'));
     }
 
     /**

@@ -4,6 +4,8 @@ namespace ZIMZIM\CategoryProductBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use ZIMZIM\CategoryProductBundle\Doctrine\ItemHomeManager;
 
@@ -43,6 +45,32 @@ class ItemHomeType extends AbstractType
                 null,
                 array('label' => 'adminitemhome.entity.position', 'translation_domain' => 'ZIMZIMCategoryProduct')
             );
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $category = $event->getData();
+                $form = $event->getForm();
+
+                $url = '';
+                if ($category && $category->getId() !== null) {
+                    $url = $category->getWebPath();
+                }
+
+                $form->add(
+                    'file',
+                    'zimzim_categoryproductbundle_zimzimimage',
+                    array(
+                        'label' => 'adminitemhome.entity.image',
+                        'translation_domain' => 'ZIMZIMCategoryProduct',
+                        'attr' => array(
+                            'url' => $url,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
+            }
+        );
     }
 
     /**
@@ -53,8 +81,7 @@ class ItemHomeType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => $this->itemHomeManager->getClassName(null),
-                'attr' => array(
-                ),
+                'attr' => array(),
                 'cascade_validation' => true,
                 'translation_domain' => 'ZIMZIMCategoryProduct'
             )

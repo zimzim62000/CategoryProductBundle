@@ -11,13 +11,13 @@ class ItemHomeFactory{
     private $categoryFormName;
     private $productFormName;
 
-    public function __construct($categoryName, $productName, $categoryFormName, $productFormName){
+    public function __construct($categoryClass, $productClass, $categoryFormName, $productFormName){
         $this->categoryFormName = $categoryFormName;
         $this->productFormName = $productFormName;
-        $this->categoryName = $categoryName;
-        $this->productName = $productName;
-        $this->category = new $categoryName();
-        $this->product = new $productName();
+        $this->categoryName = get_class($categoryClass);
+        $this->productName = get_class($productClass);
+        $this->category = $categoryClass;
+        $this->product = $productClass;
     }
 
     public function createEntity($type){
