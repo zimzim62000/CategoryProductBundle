@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Model;
+namespace ZIMZIM\CategoryProductBundle\Model\CategoryProduct;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Model;
+namespace ZIMZIM\CategoryProductBundle\Model\CategoryProduct;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -9,6 +9,7 @@ use Gedmo\Translatable\Translatable;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Validator\Constraints as Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use ZIMZIM\CategoryProductBundle\Model\ApyDataGridFilePathInterface;
 
 
 /**
@@ -239,7 +240,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
     protected function getUploadRootDir()
     {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()

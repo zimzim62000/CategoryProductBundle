@@ -17,11 +17,13 @@ class ItemHomeController extends MainController
 
         $manager = $this->container->get('zimzim_categoryproduct_itemhomemanager');
 
+        $linker = $this->container->get('zimzim_categoryproduct_factory_itemhomelink');
+
         $entities = $manager->findByPosition();
 
         return $this->render(
             'ZIMZIMCategoryProductBundle:ItemHome:indexpublic.html.twig',
-            array('entities' => $entities)
+            array('entities' => $entities, 'linker' => $linker)
         );
     }
 
@@ -97,7 +99,7 @@ class ItemHomeController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(ItemHome $entity, $manager, $type)
+    private function createCreateForm(ItemHome\ItemHomeInterface $entity, $manager, $type)
     {
         $form = $this->createForm(
             $manager->getFormName($type),
@@ -192,7 +194,7 @@ class ItemHomeController extends MainController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ItemHome $entity, $manager)
+    private function createEditForm(ItemHome\ItemHomeInterface $entity, $manager)
     {
         $form = $this->createForm(
             $manager->getFormName($entity::TYPE_ITEMHOME),
@@ -235,6 +237,7 @@ class ItemHomeController extends MainController
             $entity->preUpload();
 
             $this->updateSuccess();
+            $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('zimzim_categoryproduct_itemhome_edit', array('id' => $id)));

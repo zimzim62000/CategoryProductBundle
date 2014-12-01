@@ -32,3 +32,11 @@
     </div>
 
 {% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% include 'ZIMZIMCategoryProductBundle::tinymce.html.twig' %}
+
+{% endblock %}

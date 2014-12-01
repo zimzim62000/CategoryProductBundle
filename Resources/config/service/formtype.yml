@@ -9,3 +9,8 @@ services:
         class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMImageType
         tags:
             - { name: form.type, alias: zimzim_categoryproductbundle_zimzimimage }
+
+    zimzim_categoryproduct.form.type.zimzimtinymceformtype:
+        class: ZIMZIM\CategoryProductBundle\Form\Type\ZIMZIMTinymceType
+        tags:
+            - { name: form.type, alias: zimzim_categoryproductbundle_zimzimtinymce }

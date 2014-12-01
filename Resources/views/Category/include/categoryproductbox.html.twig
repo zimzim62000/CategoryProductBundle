@@ -1,13 +1,13 @@
 <li class="category-box">
     <div class="fullfull">
-        <a class="front" href="{{ path('zimzim_categoryproduct_product_showbyslug', {'slugcategory':entity.slug, 'slugproduct':categoryproduct.product.slug}) }}">
+        <a class="front" href="{{ path('zimzim_categoryproduct_product_showbyslug', {'slug':categoryproduct.product.slug}) }}">
             {% if categoryproduct.product.webpath1 != null %}
                 <img class="img-medium" src="/{{ categoryproduct.product.webpath1 }}"
                      alt="{{ categoryproduct.product.altpath1 }}"/>
             {% endif %}
         </a>
         <h2 class="text-center title-categorybox nomargin">
-            <a href="{{ path('zimzim_categoryproduct_product_showbyslug', {'slugcategory':entity.slug, 'slugproduct':categoryproduct.product.slug}) }}">
+            <a href="{{ path('zimzim_categoryproduct_product_showbyslug', {'slug':categoryproduct.product.slug}) }}">
                 {{ categoryproduct.product.name }}
             </a>
         </h2>

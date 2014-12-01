@@ -6,3 +6,10 @@ services:
             - @zimzim_category_product.entity.itemhomeproduct
             - %zimzim_category_product.itemhome_data.category_form%
             - %zimzim_category_product.itemhome_data.product_form%
+
+    zimzim_categoryproduct_factory_itemhomelink:
+        class: "ZIMZIM\CategoryProductBundle\Factory\ItemHomeLinkFactory"
+        arguments:
+            - @router
+            - %zimzim_category_product.itemhome_data.category_link%
+            - %zimzim_category_product.itemhome_data.product_link%

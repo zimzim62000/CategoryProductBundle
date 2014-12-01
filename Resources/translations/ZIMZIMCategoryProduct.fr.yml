@@ -64,7 +64,7 @@ adminitemhome:
         image: "Image"
 home:
     index:
-        title: "Page de presentation des categories et produits mis en valeur"
+        title: "Welcome to default site"
 button:
     create: "Créer"
     return: "Retour"

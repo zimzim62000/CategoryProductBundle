@@ -2,6 +2,7 @@
 
 namespace ZIMZIM\CategoryProductBundle\Controller;
 
+use Doctrine\ORM\Persisters\BasicEntityPersister;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -265,23 +266,20 @@ class ProductController extends MainController
     }
 
 
-    public function showProductBySlugAction($slugcategory, $slugproduct)
+    public function showProductBySlugAction($slug)
     {
 
         $manager = $this->container->get('zimzim_categoryproduct_productmanager');
 
-        $entity = $manager->findBySlug($slugproduct);
-
-        $managerCategory = $this->container->get('zimzim_categoryproduct_categorymanager');
-
-        $category = $managerCategory->findBySlug($slugcategory);
+        $entity = $manager->findBySlug($slug);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Product entity.');
         }
 
-        if (!$category) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
+        $category = false;
+        if ($entity->getCategoryproducts()->first()) {
+            $category = $entity->getCategoryproducts()->first()->getCategory();
         }
 
         return $this->render(

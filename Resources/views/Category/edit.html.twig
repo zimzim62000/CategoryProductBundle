@@ -13,13 +13,6 @@
                 {{ 'admincategory.update.title'|trans({'%name%': entity.name}) }}
             </h1>
         </div>
-        {#
-        <div class="small-2 columns">
-            <h1 class="text-center headerpagehome">
-                {{ form(moveup_form) }}
-            </h1>
-        </div>
-        #}
     </div>
     <div class="row">
         <div class="small-12 columns panel">
@@ -37,5 +30,13 @@
             {{ form(delete_form) }}
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% include 'ZIMZIMCategoryProductBundle::tinymce.html.twig' %}
 
 {% endblock %}

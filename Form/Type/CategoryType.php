@@ -46,9 +46,8 @@ class CategoryType extends AbstractType
             )
             ->add(
                 'content',
-                null,
+                'zimzim_categoryproductbundle_zimzimtinymce',
                 array(
-                    'attr' => array('contenteditable' => true),
                     'label' => 'admincategory.entity.content',
                     'translation_domain' => 'ZIMZIMCategoryProduct'
                 )

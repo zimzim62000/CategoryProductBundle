@@ -1,17 +1,20 @@
-{% if entity.id == "" %}
-    {% set linkentity = '' %}
-{% else %}
-    {% set linkentity = '' %}
-{% endif %}
+{% set linkentity = linker.getLink(entity) %}
 
-<li class="category-box">
-    <div class="fullfull">
-        <img class="img-medium" src="/{{ entity.webpath }}"
-             alt="{{ entity.name }} - {{ entity.description }}" />
-        <h2 class="text-center title-categorybox nomargin">
-            <a href="{{ linkentity }}">
-                {{ entity.name }}
-            </a>
-        </h2>
-    </div>
-</li>
+<div class="item">
+    <a href="{{ linkentity }}">
+        <img class="" src="/{{ entity.webpath }}"
+         alt="{{ entity.name }} - {{ entity.description }}"/>
+    </a>
+    <h2 class="text-center title-itemhomebox nomargin">
+        <a href="{{ linkentity }}">
+            {{ entity.name }}
+        </a>
+    </h2>
+    <h3 class="text-right title-itemhomebox nomargin">
+        <a href="{{ linkentity }}">
+            {{ entity.description }}
+        </a>
+    </h3>
+    <div class="icon-carousel icon-prev" onClick="Carousel.prev();"></div>
+    <div class="icon-carousel icon-next" onClick="Carousel.next();" ></div>
+</div>

@@ -13,7 +13,7 @@
 {% block page %}
 
     {% block breadcrumbs %}
-        {% if category.Parents|length != 0 %}
+        {% if category and category.Parents|length != 0 %}
             <nav class="breadcrumbs">
                 {% for key, parent in category.Parents if parent != null %}
                     {% if parent.slug == "" %}
@@ -28,6 +28,7 @@
             </nav>
         {% endif %}
     {% endblock breadcrumbs %}
+
 
     <div class="row">
         <div class="small-12 columns">

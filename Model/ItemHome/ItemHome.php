@@ -1,12 +1,14 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Model;
+namespace ZIMZIM\CategoryProductBundle\Model\ItemHome;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
+use ZIMZIM\CategoryProductBundle\Model\ApyDataGridFilePathInterface;
+use ZIMZIM\CategoryProductBundle\Model\TitleDescriptionTrait;
 
 /**
  * ItemHome
@@ -14,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\MappedSuperclass
  *
  */
-abstract class ItemHome
+abstract class ItemHome implements Translatable, ApyDataGridFilePathInterface, ItemHomeInterface
 {
     /**
      * @var integer
@@ -81,7 +83,7 @@ abstract class ItemHome
 
     protected function getUploadRootDir()
     {
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()

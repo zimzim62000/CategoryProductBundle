@@ -1,11 +1,12 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Model;
+namespace ZIMZIM\CategoryProductBundle\Model\CategoryProduct;
 
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use ZIMZIM\CategoryProductBundle\Model\ApyDataGridRepositoryInterface;
 
 /**
  * CategoryRepository

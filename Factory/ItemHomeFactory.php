@@ -57,4 +57,16 @@ class ItemHomeFactory{
         }
         return $name;
     }
+
+    public function getLink($type){
+        switch($type){
+            case 'product':
+                $link = $this->product->getAttributeLink();
+                break;
+            case 'category':
+                $link = $this->category->getAttributeLink();
+                break;
+        }
+        return $link;
+    }
 }

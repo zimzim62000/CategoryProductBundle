@@ -1,7 +1,6 @@
 zimzim_categoryproduct_product_showbyslug:
-    path:     /{slugcategory}/{slugproduct}/
+    path:     /{slug}/
     defaults: { _controller: "ZIMZIMCategoryProductBundle:Product:showproductbyslug" }
     requirements:
         _method:  GET
-        slugcategory: "[0-9a-z-_]+"
         slugproduct: "[0-9a-z-_]+"

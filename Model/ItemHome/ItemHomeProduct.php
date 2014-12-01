@@ -1,6 +1,6 @@
 <?php
 
-namespace ZIMZIM\CategoryProductBundle\Model;
+namespace ZIMZIM\CategoryProductBundle\Model\ItemHome;
 
 use Doctrine\ORM\Mapping as ORM;
 
