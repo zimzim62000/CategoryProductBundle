@@ -10,7 +10,7 @@
 		"php": ">=5.4.0",
 		"symfony/symfony": ">=2.0.0",
 		"twig/twig": ">=1.5.0",
-		"zimzim62000/tools-bundle": ">=1.0"
+		"zimzim62000/tools-bundle": "dev-master"
 	},
 	"autoload": {
 		"psr-4": { "ZIMZIM\\CategoryProductBundle\\": "" }
