@@ -4,8 +4,8 @@ namespace ZIMZIM\CategoryProductBundle\Doctrine;
 
 
 use Doctrine\ORM\EntityManager;
-use ZIMZIM\CategoryProductBundle\Doctrine\Configuration\ConfigurationManagerInterface;
 use ZIMZIM\CategoryProductBundle\Factory\ItemHomeFactory;
+use ZIMZIM\ToolsBundle\Doctrine\Configuration\ConfigurationManagerInterface;
 
 class ItemHomeManager
 {
@@ -16,7 +16,6 @@ class ItemHomeManager
     ) {
         $this->entityManager = $entityManager;
         $this->className = $configuration->getClassName();
-        $this->repositoryName = $configuration->getRepositoryName();
         $this->formName = $configuration->getFormName();
         $this->itemHomeFactory = $itemHomeFactory;
     }

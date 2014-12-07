@@ -5,6 +5,7 @@ namespace ZIMZIM\CategoryProductBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use APY\DataGridBundle\Grid\Row;
+use ZIMZIM\ToolsBundle\Controller\MainController;
 
 
 /**

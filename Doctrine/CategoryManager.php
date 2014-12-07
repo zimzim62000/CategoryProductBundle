@@ -4,6 +4,7 @@ namespace ZIMZIM\CategoryProductBundle\Doctrine;
 
 
 use ZIMZIM\CategoryProductBundle\Model\Category;
+use ZIMZIM\ToolsBundle\Doctrine\Manager;
 
 class CategoryManager extends Manager
 {

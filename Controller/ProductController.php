@@ -2,9 +2,8 @@
 
 namespace ZIMZIM\CategoryProductBundle\Controller;
 
-use Doctrine\ORM\Persisters\BasicEntityPersister;
 use Symfony\Component\HttpFoundation\Request;
-
+use ZIMZIM\ToolsBundle\Controller\MainController;
 /**
  * Product controller.
  *
@@ -268,7 +267,6 @@ class ProductController extends MainController
 
     public function showProductBySlugAction($slug)
     {
-
         $manager = $this->container->get('zimzim_categoryproduct_productmanager');
 
         $entity = $manager->findBySlug($slug);

@@ -2,7 +2,7 @@
 
 <div class="item">
     <a href="{{ linkentity }}">
-        <img class="" src="/{{ entity.webpath }}"
+        <img class="itemhome" src="/{{ entity.webpath }}"
          alt="{{ entity.name }} - {{ entity.description }}"/>
     </a>
     <h2 class="text-center title-itemhomebox nomargin">
@@ -15,6 +15,10 @@
             {{ entity.description }}
         </a>
     </h3>
-    <div class="icon-carousel icon-prev" onClick="Carousel.prev();"></div>
-    <div class="icon-carousel icon-next" onClick="Carousel.next();" ></div>
+    <div class="icon-carousel icon-prev" onClick="Carousel.prev();">
+        <img class="iconmove" src="{{ asset('bundles/zimzimbundlesuser/images/diode-left.png') }}"/>
+    </div>
+    <div class="icon-carousel icon-next" onClick="Carousel.next();" >
+        <img class="iconmove" src="{{ asset('bundles/zimzimbundlesuser/images/diode-right.png') }}"/>
+    </div>
 </div>

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
-use ZIMZIM\CategoryProductBundle\Model\ApyDataGridFilePathInterface;
+use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
 
 /**
  * Category
@@ -42,7 +42,6 @@ class Category implements Translatable, ApyDataGridFilePathInterface
     protected $name;
 
     /**
-     * @Gedmo\Translatable
      * @Gedmo\Slug(fields={"name"})
      *
      * @GRID\Column(operatorsVisible=false, title="ZIMZIMCategoryProduct.slug")

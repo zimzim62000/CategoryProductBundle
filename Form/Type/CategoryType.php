@@ -46,7 +46,7 @@ class CategoryType extends AbstractType
             )
             ->add(
                 'content',
-                'zimzim_categoryproductbundle_zimzimtinymce',
+                'zimzim_toolsbundle_zimzimtinymce',
                 array(
                     'label' => 'admincategory.entity.content',
                     'translation_domain' => 'ZIMZIMCategoryProduct'
@@ -75,7 +75,7 @@ class CategoryType extends AbstractType
 
                 $form->add(
                     'file',
-                    'zimzim_categoryproductbundle_zimzimimage',
+                    'zimzim_toolsbundle_zimzimimage',
                     array(
                         'label' => 'admincategory.entity.image',
                         'translation_domain' => 'ZIMZIMCategoryProduct',
@@ -116,7 +116,7 @@ class CategoryType extends AbstractType
                 if ($category && $category->getId() !== null) {
                     $form->add(
                         'categoryproducts',
-                        'zimzim_categoryproductbundle_zimzimcollection',
+                        'zimzim_toolsbundle_zimzimcollection',
                         array(
                             'type' => $this->categoryProductManager->getFormname(),
                             'allow_add' => true,

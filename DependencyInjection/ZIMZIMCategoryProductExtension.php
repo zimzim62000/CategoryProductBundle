@@ -22,28 +22,46 @@ class ZIMZIMCategoryProductExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter($this->getAlias().'.max_element', $config['max_element']);
-        $container->setParameter($this->getAlias().'.category_class', $config['category_class']);
-        $container->setParameter($this->getAlias().'.category_repo', $config['category_repo']);
-        $container->setParameter($this->getAlias().'.category_form', $config['category_form']);
-        $container->setParameter($this->getAlias().'.categoryproduct_class', $config['categoryproduct_class']);
-        $container->setParameter($this->getAlias().'.categoryproduct_repo', $config['categoryproduct_repo']);
-        $container->setParameter($this->getAlias().'.categoryproduct_form', $config['categoryproduct_form']);
-        $container->setParameter($this->getAlias().'.product_class', $config['product_class']);
-        $container->setParameter($this->getAlias().'.product_repo', $config['product_repo']);
-        $container->setParameter($this->getAlias().'.product_form', $config['product_form']);
-        $container->setParameter($this->getAlias().'.itemhome_class', $config['itemhome_class']);
-        $container->setParameter($this->getAlias().'.itemhome_repo', $config['itemhome_repo']);
-        $container->setParameter($this->getAlias().'.itemhome_form', $config['itemhome_form']);
-        $container->setParameter($this->getAlias().'.itemhome_repo', $config['itemhome_repo']);
-        $container->setParameter($this->getAlias().'.itemhome_data.category_class', $config['itemhome_data']['category_class']);
-        $container->setParameter($this->getAlias().'.itemhome_data.category_form', $config['itemhome_data']['category_form']);
-        $container->setParameter($this->getAlias().'.itemhome_data.category_link', $config['itemhome_data']['category_link']);
-        $container->setParameter($this->getAlias().'.itemhome_data.product_class', $config['itemhome_data']['product_class']);
-        $container->setParameter($this->getAlias().'.itemhome_data.product_form', $config['itemhome_data']['product_form']);
-        $container->setParameter($this->getAlias().'.itemhome_data.product_link', $config['itemhome_data']['product_link']);
+        $container->setParameter($this->getAlias() . '.max_element', $config['max_element']);
+        $container->setParameter($this->getAlias() . '.category_class', $config['category_class']);
+        $container->setParameter($this->getAlias() . '.category_repo', $config['category_repo']);
+        $container->setParameter($this->getAlias() . '.category_form', $config['category_form']);
+        $container->setParameter($this->getAlias() . '.categoryproduct_class', $config['categoryproduct_class']);
+        $container->setParameter($this->getAlias() . '.categoryproduct_repo', $config['categoryproduct_repo']);
+        $container->setParameter($this->getAlias() . '.categoryproduct_form', $config['categoryproduct_form']);
+        $container->setParameter($this->getAlias() . '.product_class', $config['product_class']);
+        $container->setParameter($this->getAlias() . '.product_repo', $config['product_repo']);
+        $container->setParameter($this->getAlias() . '.product_form', $config['product_form']);
+        $container->setParameter($this->getAlias() . '.itemhome_class', $config['itemhome_class']);
+        $container->setParameter($this->getAlias() . '.itemhome_repo', $config['itemhome_repo']);
+        $container->setParameter($this->getAlias() . '.itemhome_form', $config['itemhome_form']);
+        $container->setParameter($this->getAlias() . '.itemhome_repo', $config['itemhome_repo']);
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.category_class',
+            $config['itemhome_data']['category_class']
+        );
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.category_form',
+            $config['itemhome_data']['category_form']
+        );
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.category_link',
+            $config['itemhome_data']['category_link']
+        );
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.product_class',
+            $config['itemhome_data']['product_class']
+        );
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.product_form',
+            $config['itemhome_data']['product_form']
+        );
+        $container->setParameter(
+            $this->getAlias() . '.itemhome_data.product_link',
+            $config['itemhome_data']['product_link']
+        );
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
     }
 }

@@ -55,7 +55,7 @@ class ProductType extends AbstractType
                     }
                     $form->add(
                         'file' . $i,
-                        'zimzim_categoryproductbundle_zimzimimage',
+                        'zimzim_toolsbundle_zimzimimage',
                         array(
                             'label' => 'adminproduct.entity.image',
                             'translation_domain' => 'ZIMZIMCategoryProduct',

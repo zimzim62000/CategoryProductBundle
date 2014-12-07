@@ -5,6 +5,7 @@ namespace ZIMZIM\CategoryProductBundle\Controller;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Symfony\Component\HttpFoundation\Request;
 use ZIMZIM\CategoryProductBundle\Model\ItemHome;
+use ZIMZIM\ToolsBundle\Controller\MainController;
 
 /**
  * ItemHome controller.

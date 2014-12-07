@@ -3,6 +3,5 @@ imports:
     - { resource: service/factory.yml }
     - { resource: service/validator.yml }
     - { resource: service/form.yml }
-    - { resource: service/formtype.yml }
     - { resource: service/manager.yml }
     - { resource: service/entity.yml }

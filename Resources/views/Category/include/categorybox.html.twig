@@ -5,8 +5,8 @@
 {% endif %}
 
 <li class="category-box">
-    <div class="fullfull">
-        <img class="img-medium" src="/{{ child.webpath }}"
+    <div class="fullfull pointer">
+        <img class="img-medium pointer" src="/{{ child.webpath }}" onClick="location.href='{{ linkchild }}';"
              alt="{{ child.name }} - {{ child.description }}" />
         <h2 class="text-center title-categorybox nomargin">
             <a href="{{ linkchild }}">

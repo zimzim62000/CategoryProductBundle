@@ -7,8 +7,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
-use ZIMZIM\CategoryProductBundle\Model\ApyDataGridFilePathInterface;
+use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
 use ZIMZIM\CategoryProductBundle\Model\TitleDescriptionTrait;
+use ZIMZIM\ToolsBundle\Model\FileUpload;
 
 /**
  * ItemHome
@@ -16,7 +17,7 @@ use ZIMZIM\CategoryProductBundle\Model\TitleDescriptionTrait;
  * @ORM\MappedSuperclass
  *
  */
-abstract class ItemHome implements Translatable, ApyDataGridFilePathInterface, ItemHomeInterface
+abstract class ItemHome extends FileUpload implements Translatable, ApyDataGridFilePathInterface, ItemHomeInterface
 {
     /**
      * @var integer
@@ -48,6 +49,28 @@ abstract class ItemHome implements Translatable, ApyDataGridFilePathInterface, I
      */
     protected $position;
 
+    /******************************** IMAGE **************************/
+    /**
+     * @Assert\File(maxSize="500000")
+     */
+    public $file;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMToolsBundle.grid.file")
+     */
+    public $path;
+
+    protected function getUploadDir()
+    {
+        return 'resources/itemhome';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
+    }
+
     use TitleDescriptionTrait;
 
     /**
@@ -58,89 +81,6 @@ abstract class ItemHome implements Translatable, ApyDataGridFilePathInterface, I
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
     protected $updatedAt;
-
-    /******************************** IMAGE **************************/
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
-    public $file;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
-     */
-    public $path;
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
-    }
-
-    protected function getUploadRootDir()
-    {
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        return 'resources/itemhome';
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (isset($this->file)) {
-            if (null !== $this->file) {
-
-                $oldFile = $this->getAbsolutePath();
-                if ($oldFile && isset($this->path)) {
-                    if (file_exists($oldFile)) {
-                        unlink($oldFile);
-                    }
-                }
-
-                $extension = strrchr($this->file->getClientOriginalName(), '.');
-
-                $filename = str_replace($extension, '', $this->file->getClientOriginalName());
-
-                $this->path = urlencode($filename) . '.' . $this->file->guessExtension();
-            }
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (isset($this->file)) {
-            if (null === $this->file) {
-                return;
-            }
-            $this->file->move($this->getUploadRootDir(), $this->path);
-
-            unset($this->file);
-        }
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
-        }
-    }
 
     /**
      * Get id
@@ -211,29 +151,5 @@ abstract class ItemHome implements Translatable, ApyDataGridFilePathInterface, I
 
         return $this;
     }
-
-    public function getListAttrImg()
-    {
-        return array('path');
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * @param mixed $path
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
 
 }

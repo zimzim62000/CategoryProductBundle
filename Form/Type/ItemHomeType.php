@@ -59,7 +59,7 @@ class ItemHomeType extends AbstractType
 
                 $form->add(
                     'file',
-                    'zimzim_categoryproductbundle_zimzimimage',
+                    'zimzim_toolsbundle_zimzimimage',
                     array(
                         'label' => 'adminitemhome.entity.image',
                         'translation_domain' => 'ZIMZIMCategoryProduct',

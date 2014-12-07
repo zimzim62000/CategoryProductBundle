@@ -5,7 +5,7 @@ namespace ZIMZIM\CategoryProductBundle\Model\CategoryProduct;
 use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
-use ZIMZIM\CategoryProductBundle\Model\ApyDataGridRepositoryInterface;
+use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
 
 /**
  * CategoryRepository
@@ -18,6 +18,24 @@ abstract class ProductRepository extends EntityRepository implements ApyDataGrid
     public function getList(Entity $source)
     {
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
+
         return $source;
+    }
+
+    public function getByCategory($category)
+    {
+
+        $query = $this->createQueryBuilder('p');
+        $query->join('p.categoryproducts', 'cp')
+            ->where('cp.category = :category')
+            ->setParameter('category', $category)
+            ->orderBy('cp.position', 'ASC');
+
+        $query->getQuery()->setHint(
+            \Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER,
+            'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker'
+        );
+
+        return $query->getQuery()->getResult();
     }
 }
