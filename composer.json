@@ -24,14 +24,14 @@
 	    {
 	        "type":"package",
 	        "package": {
-	          "name": "zimzim62000/tools-bundle",
-	          "version":"master",
-	          "source": {
-	              "url": "https://github.com/zimzim62000/ToolsBundle.git",
-	              "type": "git",
-	              "reference":"master"
-	            }
-	        }
+			"name": "zimzim62000/tools-bundle",
+	          	"version":"master",
+	          	"source": {
+	              		"url": "https://github.com/zimzim62000/ToolsBundle.git",
+	              		"type": "git",
+	              		"reference":"master"
+	        	}
+	       }
 	    }
 	],
 }
