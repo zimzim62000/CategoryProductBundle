@@ -21,8 +21,9 @@
 		}
 	},
 	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/zimzim62000/ToolsBundle.git"
-        }
+	        {
+	            "type": "git",
+	            "url": "https://github.com/zimzim62000/ToolsBundle.git"
+	        }
+        ]
 }
