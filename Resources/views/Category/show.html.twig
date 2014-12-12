@@ -70,7 +70,9 @@
                     </a>
                 </div>
                 <div class="small-12 large-4 columns text-center">
-                    {{ form(delete_form) }}
+                    {% if entity.parent %}
+                        {{ form(delete_form) }}
+                    {% endif %}
                 </div>
             </div>
         </div>

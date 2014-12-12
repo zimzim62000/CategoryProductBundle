@@ -119,7 +119,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     /****************************************** image / file ************************************************/
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file1;
 
@@ -149,7 +149,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file2;
 
@@ -179,7 +179,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file3;
 
@@ -208,7 +208,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file4;
 
