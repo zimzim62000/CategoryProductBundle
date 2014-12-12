@@ -37,9 +37,6 @@ class CategoryManager extends Manager
 
         $tmp = $this->getRepository()->verify();
 
-        if(count($tmp)){
-            var_dump($tmp);die;
-        }
         return $tmp;
     }
 
