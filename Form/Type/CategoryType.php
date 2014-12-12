@@ -88,6 +88,12 @@ class CategoryType extends AbstractType
 
                 $repository = $this->categoryManager->getRepository();
                 if ($addParent) {
+
+                    $tabIds = array();
+                    foreach($category->getAllChildrens() as $child){
+                        $tabIds[] = $child->getId();
+                    }
+
                     $form->
                     add(
                         'parent',
@@ -95,11 +101,12 @@ class CategoryType extends AbstractType
                         array(
                             'class' => $this->categoryManager->getClassName(),
                             'property' => 'indentedTitle',
-                            'query_builder' => function () use ($id_category, $repository) {
+                            'query_builder' => function () use ($id_category, $repository, $tabIds) {
                                 $query = $repository->createQueryBuilder('c');
                                 if (isset($id_category)) {
-                                    $query->where('c.id <> :category')
-                                        ->setParameter('category', $id_category);
+                                    $query->where($query->expr()->notIn('c.id', ':ids'))
+                                        ->setParameter('ids', $tabIds);
+
                                 }
                                 $query->orderBy('c.root', 'ASC')
                                     ->addOrderBy('c.lft', 'ASC');

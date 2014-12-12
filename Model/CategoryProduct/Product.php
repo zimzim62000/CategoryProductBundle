@@ -128,7 +128,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
-    public $path1;
+    protected $path1;
 
     /**
      *
@@ -136,7 +136,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath1;
+    protected $altPath1;
 
     public function getAbsolutePath1()
     {
@@ -158,7 +158,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
-    public $path2;
+    protected $path2;
 
     /**
      *
@@ -166,7 +166,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath2;
+    protected $altPath2;
 
     public function getAbsolutePath2()
     {
@@ -187,14 +187,14 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      * @ORM\Column(type="string", length=255, nullable=true, name="file3")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $path3;
+    protected $path3;
 
     /**
      *
      * @ORM\Column(name="altPath3", type="string", length=255, nullable=true )
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath3;
+    protected $altPath3;
 
 
     public function getAbsolutePath3()
@@ -216,14 +216,14 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      * @ORM\Column(type="string", length=255, nullable=true, name="file4")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $path4;
+    protected $path4;
 
     /**
      *
      * @ORM\Column(name="altPath4", type="string", length=255, nullable=true )
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath4;
+    protected $altPath4;
 
 
     public function getAbsolutePath4()

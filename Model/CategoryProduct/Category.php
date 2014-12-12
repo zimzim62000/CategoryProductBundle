@@ -125,7 +125,7 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
-    public $path;
+    protected $path;
 
     public function getAbsolutePath()
     {
@@ -238,13 +238,13 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      */
-    public $parent;
+    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
-    public $children;
+    protected $children;
 
 
     /******************************** THREE **************************/
@@ -617,6 +617,22 @@ class Category implements Translatable, ApyDataGridFilePathInterface
         }
 
         return $parents;
+    }
+
+    public function getAllChildrens()
+    {
+        $childs = array();
+        $childs[] = $this;
+        $objects = $this->getChildren();
+        while (count($objects) > 0) {
+            $childs = array_merge($childs, $objects->toArray());
+            foreach($objects as $object){
+                $objects = $object->getChildren();
+                $childs = array_merge($childs, $objects->toArray());
+            }
+        }
+
+        return $childs;
     }
 
     /**
