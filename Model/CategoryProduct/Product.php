@@ -475,7 +475,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
                 $extension = strrchr($this->file2->getClientOriginalName(),'.');
 
-                $filename  = str_replace($extension, '', $this->file1->getClientOriginalName());
+                $filename  = str_replace($extension, '', $this->file2->getClientOriginalName());
 
                 $this->path2 = urlencode($filename) . '.' . $this->file2->guessExtension();
             }
