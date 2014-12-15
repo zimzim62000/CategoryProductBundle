@@ -26,7 +26,11 @@ class ItemHomeProductType extends AbstractType
             ->add(
                 'product',
                 null,
-                array('label' => 'adminitemhome.entity.product', 'translation_domain' => 'ZIMZIMCategoryProduct')
+                array(
+                    'label' => 'adminitemhome.entity.product',
+                    'translation_domain' => 'ZIMZIMCategoryProduct',
+                    'empty_value' => false
+                )
             );
     }
 
