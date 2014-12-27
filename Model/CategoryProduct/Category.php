@@ -9,6 +9,7 @@ use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
+use ZIMZIM\ToolsBundle\Model\FileUpload;
 
 /**
  * Category
@@ -18,7 +19,7 @@ use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridFilePathInterface;
  * @Gedmo\Tree(type="nested")
  *
  */
-class Category implements Translatable, ApyDataGridFilePathInterface
+class Category extends FileUpload implements Translatable, ApyDataGridFilePathInterface
 {
     /**
      * @var integer
@@ -88,15 +89,6 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      */
     protected $createdAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(name="updated_at", type="datetime")
-     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
-     */
-    protected $updatedAt;
-
 
     /**
      * @Gedmo\Locale
@@ -116,27 +108,6 @@ class Category implements Translatable, ApyDataGridFilePathInterface
 
 
     /******************************** IMAGE **************************/
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
-    public $file;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
-     */
-    public $path;
-
-    public function getAbsolutePath()
-    {
-        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
-    }
-
-    public function getWebPath()
-    {
-        return null === $this->path ? null : $this->getUploadDir() . '/' . $this->path;
-    }
-
     protected function getUploadRootDir()
     {
         return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
@@ -146,59 +117,6 @@ class Category implements Translatable, ApyDataGridFilePathInterface
     {
         return 'resources/category';
     }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (isset($this->file)) {
-            if (null !== $this->file) {
-
-                $oldFile = $this->getAbsolutePath();
-                if ($oldFile && isset($this->path)) {
-                    if (file_exists($oldFile)) {
-                        unlink($oldFile);
-                    }
-                }
-
-                $extension = strrchr($this->file->getClientOriginalName(),'.');
-
-                $filename  = str_replace($extension, '', $this->file->getClientOriginalName());
-
-                $this->path = urlencode($filename) . '.' . $this->file->guessExtension();
-            }
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (isset($this->file)) {
-            if (null === $this->file) {
-                return;
-            }
-            $this->file->move($this->getUploadRootDir(), $this->path);
-
-            unset($this->file);
-        }
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
-        }
-    }
-
-    /******************************** IMAGE **************************/
 
     /******************************** THREE **************************/
 
@@ -238,13 +156,13 @@ class Category implements Translatable, ApyDataGridFilePathInterface
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="id_parent", referencedColumnName="id", onDelete="CASCADE")
      */
-    public $parent;
+    protected $parent;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
-    public $children;
+    protected $children;
 
 
     /******************************** THREE **************************/
@@ -617,6 +535,22 @@ class Category implements Translatable, ApyDataGridFilePathInterface
         }
 
         return $parents;
+    }
+
+    public function getAllChildrens()
+    {
+        $childs = array();
+        $childs[] = $this;
+        $objects = $this->getChildren();
+        while (count($objects) > 0) {
+            $childs = array_merge($childs, $objects->toArray());
+            foreach($objects as $object){
+                $objects = $object->getChildren();
+                $childs = array_merge($childs, $objects->toArray());
+            }
+        }
+
+        return $childs;
     }
 
     /**

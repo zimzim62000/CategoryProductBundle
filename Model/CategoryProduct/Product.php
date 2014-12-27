@@ -119,7 +119,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     /****************************************** image / file ************************************************/
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file1;
 
@@ -128,7 +128,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
-    public $path1;
+    protected $path1;
 
     /**
      *
@@ -136,7 +136,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath1;
+    protected $altPath1;
 
     public function getAbsolutePath1()
     {
@@ -149,7 +149,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file2;
 
@@ -158,7 +158,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
      */
-    public $path2;
+    protected $path2;
 
     /**
      *
@@ -166,7 +166,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      *
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath2;
+    protected $altPath2;
 
     public function getAbsolutePath2()
     {
@@ -179,7 +179,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file3;
 
@@ -187,14 +187,14 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      * @ORM\Column(type="string", length=255, nullable=true, name="file3")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $path3;
+    protected $path3;
 
     /**
      *
      * @ORM\Column(name="altPath3", type="string", length=255, nullable=true )
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath3;
+    protected $altPath3;
 
 
     public function getAbsolutePath3()
@@ -208,7 +208,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /**
-     * @Assert\File(maxSize="200000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
      */
     public $file4;
 
@@ -216,14 +216,14 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      * @ORM\Column(type="string", length=255, nullable=true, name="file4")
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $path4;
+    protected $path4;
 
     /**
      *
      * @ORM\Column(name="altPath4", type="string", length=255, nullable=true )
      * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
      */
-    public $altPath4;
+    protected $altPath4;
 
 
     public function getAbsolutePath4()
@@ -236,6 +236,65 @@ class Product implements Translatable, ApyDataGridFilePathInterface
         return null === $this->path4 ? null : $this->getUploadDir() . '/' . $this->path4;
     }
 
+
+    /**
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     */
+    public $file5;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="file5")
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    protected $path5;
+
+    /**
+     *
+     * @ORM\Column(name="altPath5", type="string", length=255, nullable=true )
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    protected $altPath5;
+
+
+    public function getAbsolutePath5()
+    {
+        return null === $this->path5 ? null : $this->getUploadRootDir() . '/' . $this->path5;
+    }
+
+    public function getWebPath5()
+    {
+        return null === $this->path5 ? null : $this->getUploadDir() . '/' . $this->path5;
+    }
+
+
+    /**
+     * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
+     */
+    public $file6;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="file6")
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    protected $path6;
+
+    /**
+     *
+     * @ORM\Column(name="altPath6", type="string", length=255, nullable=true )
+     * @GRID\Column(operatorsVisible=false, visible=false, filterable=false)
+     */
+    protected $altPath6;
+
+
+    public function getAbsolutePath6()
+    {
+        return null === $this->path6 ? null : $this->getUploadRootDir() . '/' . $this->path6;
+    }
+
+    public function getWebPath6()
+    {
+        return null === $this->path6 ? null : $this->getUploadDir() . '/' . $this->path6;
+    }
 
     protected function getUploadRootDir()
     {
@@ -475,7 +534,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
 
                 $extension = strrchr($this->file2->getClientOriginalName(),'.');
 
-                $filename  = str_replace($extension, '', $this->file1->getClientOriginalName());
+                $filename  = str_replace($extension, '', $this->file2->getClientOriginalName());
 
                 $this->path2 = urlencode($filename) . '.' . $this->file2->guessExtension();
             }
@@ -514,6 +573,40 @@ class Product implements Translatable, ApyDataGridFilePathInterface
                 $this->path4 = urlencode($filename) . '.' . $this->file4->guessExtension();
             }
         }
+        if (isset($this->file5)) {
+            if (null !== $this->file5) {
+
+                $oldFile = $this->getAbsolutePath5();
+                if ($oldFile && isset($this->path5)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file5->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file5->getClientOriginalName());
+
+                $this->path5 = urlencode($filename) . '.' . $this->file5->guessExtension();
+            }
+        }
+        if (isset($this->file6)) {
+            if (null !== $this->file6) {
+
+                $oldFile = $this->getAbsolutePath6();
+                if ($oldFile && isset($this->path6)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $extension = strrchr($this->file6->getClientOriginalName(),'.');
+
+                $filename  = str_replace($extension, '', $this->file6->getClientOriginalName());
+
+                $this->path6 = urlencode($filename) . '.' . $this->file6->guessExtension();
+            }
+        }
     }
 
     /**
@@ -550,6 +643,20 @@ class Product implements Translatable, ApyDataGridFilePathInterface
             $this->file4->move($this->getUploadRootDir(), $this->path4);
             unset($this->file4);
         }
+        if (isset($this->file5)) {
+            if (null === $this->file5) {
+                return;
+            }
+            $this->file5->move($this->getUploadRootDir(), $this->path5);
+            unset($this->file5);
+        }
+        if (isset($this->file6)) {
+            if (null === $this->file6) {
+                return;
+            }
+            $this->file6->move($this->getUploadRootDir(), $this->path6);
+            unset($this->file6);
+        }
     }
 
     /**
@@ -567,6 +674,12 @@ class Product implements Translatable, ApyDataGridFilePathInterface
             unlink($file);
         }
         if ($file = $this->getAbsolutePath4()) {
+            unlink($file);
+        }
+        if ($file = $this->getAbsolutePath6()) {
+            unlink($file);
+        }
+        if ($file = $this->getAbsolutePath6()) {
             unlink($file);
         }
     }
@@ -674,5 +787,69 @@ class Product implements Translatable, ApyDataGridFilePathInterface
         $this->categoryproducts = $categoryproducts;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAltPath5()
+    {
+        return $this->altPath5;
+    }
+
+    /**
+     * @param mixed $altPath5
+     */
+    public function setAltPath5($altPath5)
+    {
+        $this->altPath5 = $altPath5;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAltPath6()
+    {
+        return $this->altPath6;
+    }
+
+    /**
+     * @param mixed $altPath6
+     */
+    public function setAltPath6($altPath6)
+    {
+        $this->altPath6 = $altPath6;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath5()
+    {
+        return $this->path5;
+    }
+
+    /**
+     * @param mixed $path5
+     */
+    public function setPath5($path5)
+    {
+        $this->path5 = $path5;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPath6()
+    {
+        return $this->path6;
+    }
+
+    /**
+     * @param mixed $path6
+     */
+    public function setPath6($path6)
+    {
+        $this->path6 = $path6;
     }
 }

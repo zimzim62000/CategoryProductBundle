@@ -13,14 +13,35 @@ class CategoryManager extends Manager
         return $this->getRepository()->findOneBy(array('slug' => $slug));
     }
 
-    public function moveUp(Category $entity, $number)
+    public function moveUp($entity, $number)
     {
-        return $this->getRepository()->moveUp($entity, $number);
+        $this->getRepository()->moveUp($entity, $number);
+
+        $this->verify();
+
+        return true;
+    }
+
+    public function moveDown($entity, $number)
+    {
+        $this->getRepository()->moveDown($entity, $number);
+
+        $this->verify();
+
+        return true;
     }
 
     public function verify()
     {
-        return $this->getRepository()->verify();
+        $this->recover();
+
+        $tmp = $this->getRepository()->verify();
+
+        return $tmp;
+    }
+
+    public function recover(){
+        return $this->getRepository()->recover();
     }
 
 }

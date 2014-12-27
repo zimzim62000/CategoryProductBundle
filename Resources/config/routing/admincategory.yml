@@ -33,3 +33,8 @@ zimzim_categoryproduct_category_moveup:
     path:     /{id}/moveup/
     defaults: { _controller: "ZIMZIMCategoryProductBundle:Category:moveup" }
     requirements: { _method: post|put }
+
+zimzim_categoryproduct_category_movedown:
+    path:     /{id}/movedown/
+    defaults: { _controller: "ZIMZIMCategoryProductBundle:Category:movedown" }
+    requirements: { _method: post|put }

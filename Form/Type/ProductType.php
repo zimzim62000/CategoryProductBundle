@@ -47,7 +47,7 @@ class ProductType extends AbstractType
                 $product = $event->getData();
                 $form = $event->getForm();
 
-                for ($i = 1; $i < 5; $i++) {
+                for ($i = 1; $i < 7; $i++) {
                     $tmpFileName = '';
                     if ($product->getId() !== null) {
                         $methodName = 'getWebPath' . $i;
