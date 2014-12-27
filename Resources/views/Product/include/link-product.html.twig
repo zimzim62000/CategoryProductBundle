@@ -1,0 +1,11 @@
+{% trans_default_domain 'ZIMZIMCategoryProduct' %}
+
+<div class="row">
+    <div class="small-12 columns">
+        <h6 class="text-center">
+            <a target="_blank" href="{{ path('zimzim_categoryproduct_product_showbyslug', {'slug':entity.slug}) }}">
+                {{ 'adminproduct.include.linkproduct.link'|trans }}
+            </a>
+        </h6>
+    </div>
+</div>

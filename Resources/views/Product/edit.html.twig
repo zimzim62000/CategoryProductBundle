@@ -14,6 +14,9 @@
             </h1>
         </div>
     </div>
+
+    {% include 'ZIMZIMCategoryProductBundle:Product:include/link-product.html.twig' with {'entity': entity} %}
+
     <div class="row">
         <div class="small-12 columns panel">
             {{ form(edit_form) }}

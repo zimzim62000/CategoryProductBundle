@@ -51,6 +51,7 @@ class ProductType extends AbstractType
                     $tmpFileName = '';
                     if ($product->getId() !== null) {
                         $methodName = 'getWebPath' . $i;
+                        $methodSetName = 'setPath' . $i;
                         $tmpFileName = $product->$methodName();
                     }
                     $form->add(
@@ -63,6 +64,17 @@ class ProductType extends AbstractType
                                 'url' => $tmpFileName,
                                 'label-inline' => 'label-inline'
                             )
+                        )
+                    );
+                    if(trim($product->$methodName()) === ''){
+                        $product->$methodSetName(null);
+                    }
+                    $form->add(
+                        'path' . $i,
+                        null,
+                        array(
+                            'label' => 'adminproduct.entity.path',
+                            'translation_domain' => 'ZIMZIMCategoryProduct'
                         )
                     );
                     $form->add(

@@ -11,6 +11,9 @@ adminproduct:
         title: "Création d'un produit"
     update:
         title: "Modification du produit : %name%"
+    include:
+        linkproduct:
+            link: "Lien vers la page du magasin"
     entity:
         id: "Id"
         name: "Nom"
@@ -18,6 +21,7 @@ adminproduct:
         description: "Méta description"
         image: "Image"
         updatedat: "Modifier le"
+        path: "Lien image ( pour supprimer cette image, veuillez supprimer le texte )"
         altpath: "Texte de l'image"
 admincategory:
     index:
