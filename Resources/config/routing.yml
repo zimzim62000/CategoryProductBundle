@@ -4,7 +4,7 @@ zimzim_categoryproduct_itemhome:
 
 zimzim_categoryproduct_admincategory:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/admincategory.yml"
-    prefix:   /admin/category/
+    prefix:   /zimzim/category/
 
 zimzim_categoryproduct_category:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/category.yml"
@@ -12,7 +12,7 @@ zimzim_categoryproduct_category:
 
 zimzim_categoryproduct_adminproduct:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/adminproduct.yml"
-    prefix:   /admin/product/
+    prefix:   /zimzim/product/
 
 zimzim_categoryproduct_product:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/product.yml"
@@ -20,4 +20,4 @@ zimzim_categoryproduct_product:
 
 zimzim_categoryproduct_adminitemhome:
     resource: "@ZIMZIMCategoryProductBundle/Resources/config/routing/adminitemhome.yml"
-    prefix:   /admin/itemhome/
+    prefix:   /zimzim/itemhome/
