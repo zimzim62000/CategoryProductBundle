@@ -49,9 +49,9 @@ class ProductType extends AbstractType
 
                 for ($i = 1; $i < 7; $i++) {
                     $tmpFileName = '';
+                    $methodName = 'getWebPath' . $i;
+                    $methodSetName = 'setPath' . $i;
                     if ($product->getId() !== null) {
-                        $methodName = 'getWebPath' . $i;
-                        $methodSetName = 'setPath' . $i;
                         $tmpFileName = $product->$methodName();
                     }
                     $form->add(
@@ -66,9 +66,7 @@ class ProductType extends AbstractType
                             )
                         )
                     );
-                    if(trim($product->$methodName()) === ''){
-                        $product->$methodSetName(null);
-                    }
+                    
                     $form->add(
                         'path' . $i,
                         null,
