@@ -23,6 +23,8 @@ adminproduct:
         updatedat: "Modifier le"
         path: "Lien image ( pour supprimer cette image, veuillez supprimer le texte )"
         altpath: "Texte de l'image"
+        filepj: "Pièce jointe"
+        pathpj: "Lien pièce jointe ( pour supprimer ce fichier, veuillez supprimer le texte )"
 admincategory:
     index:
         title: "Administration des categories"

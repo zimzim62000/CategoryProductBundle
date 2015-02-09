@@ -95,6 +95,9 @@ class Product implements Translatable, ApyDataGridFilePathInterface
      */
     protected $updatedAt;
 
+
+
+
     /**
      * @Gedmo\Locale
      */
@@ -117,6 +120,30 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     }
 
     /****************************************** image / file ************************************************/
+
+    /**
+     * @Assert\File(maxSize="500000", mimeTypes={"application/pdf"})
+     */
+    public $filePj;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, name="filePj")
+     *
+     * @GRID\Column(operatorsVisible=false, safe=false, title="ZIMZIMCategoryProduct.image")
+     */
+    protected $pathPj;
+
+    public function getAbsolutePathPj()
+    {
+        return null === $this->pathPj ? null : $this->getUploadRootDir() . '/' . $this->pathPj;
+    }
+
+    public function getWebPathPj()
+    {
+        return null === $this->pathPj ? null : $this->getUploadDir() . '/' . $this->pathPj;
+    }
+
+
 
     /**
      * @Assert\File(maxSize="500000", mimeTypes={"image/jpeg", "image/png", "image/gif"})
@@ -607,6 +634,20 @@ class Product implements Translatable, ApyDataGridFilePathInterface
                 $this->path6 = urlencode($filename) . '.' . $this->file6->guessExtension();
             }
         }
+        if (isset($this->filePj)) {
+            if (null !== $this->filePj) {
+
+                $oldFile = $this->getAbsolutePathPj();
+                if ($oldFile && isset($this->filePj)) {
+                    if (file_exists($oldFile)) {
+                        unlink($oldFile);
+                    }
+                }
+
+                $this->pathPj = sha1(uniqid(mt_rand(), true)).'.'.$this->filePj->guessExtension();
+
+            }
+        }
     }
 
     /**
@@ -657,6 +698,13 @@ class Product implements Translatable, ApyDataGridFilePathInterface
             $this->file6->move($this->getUploadRootDir(), $this->path6);
             unset($this->file6);
         }
+        if (isset($this->filePj)) {
+            if (null === $this->filePj) {
+                return;
+            }
+            $this->filePj->move($this->getUploadRootDir(), $this->pathPj);
+            unset($this->filePj);
+        }
     }
 
     /**
@@ -680,6 +728,9 @@ class Product implements Translatable, ApyDataGridFilePathInterface
             unlink($file);
         }
         if ($file = $this->getAbsolutePath6()) {
+            unlink($file);
+        }
+        if ($file = $this->getAbsolutePathPj()) {
             unlink($file);
         }
     }
@@ -852,4 +903,24 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     {
         $this->path6 = $path6;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPathPj()
+    {
+        return $this->pathPj;
+    }
+
+    /**
+     * @param mixed $pathPj
+     */
+    public function setPathPj($pathPj)
+    {
+        $this->pathPj = $pathPj;
+
+        return $this;
+    }
+
+
 }

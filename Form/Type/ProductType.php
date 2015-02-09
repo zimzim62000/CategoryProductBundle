@@ -50,7 +50,6 @@ class ProductType extends AbstractType
                 for ($i = 1; $i < 7; $i++) {
                     $tmpFileName = '';
                     $methodName = 'getWebPath' . $i;
-                    $methodSetName = 'setPath' . $i;
                     if ($product->getId() !== null) {
                         $tmpFileName = $product->$methodName();
                     }
@@ -84,6 +83,33 @@ class ProductType extends AbstractType
                         )
                     );
                 }
+                $extension = false;
+                if ($product->getId() !== null) {
+                    $extension= substr(strrchr($product->getAbsolutePathPj(),'.'), 1);
+                }
+
+                $form->add(
+                    'filePj',
+                    'zimzim_toolsbundle_zimzimupload',
+                    array(
+                        'label' => 'adminproduct.entity.filepj',
+                        'translation_domain' => 'ZIMZIMCategoryProduct',
+                        'attr' => array(
+                            'extension' => $extension,
+                            'label-inline' => 'label-inline'
+                        )
+                    )
+                );
+
+                $form->add(
+                    'pathPj',
+                    null,
+                    array(
+                        'label' => 'adminproduct.entity.pathpj',
+                        'translation_domain' => 'ZIMZIMCategoryProduct'
+                    )
+                );
+
             }
         );
 
