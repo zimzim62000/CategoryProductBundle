@@ -122,7 +122,7 @@ class Product implements Translatable, ApyDataGridFilePathInterface
     /****************************************** image / file ************************************************/
 
     /**
-     * @Assert\File(maxSize="500000", mimeTypes={"application/pdf"})
+     * @Assert\File(maxSize="1000000", mimeTypes={"application/pdf"})
      */
     public $filePj;
 
