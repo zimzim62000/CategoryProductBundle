@@ -6,6 +6,7 @@ use APY\DataGridBundle\Grid\Source\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\EntityRepository;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * CategoryRepository
@@ -15,7 +16,7 @@ use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
  */
 abstract class ProductRepository extends EntityRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList(Entity $source)
+    public function getList(Entity $source, SecurityContext $securityContext)
     {
         $source->addHint(Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker');
 

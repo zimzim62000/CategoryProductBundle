@@ -7,6 +7,7 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Gedmo\Sortable\Entity\Repository\SortableRepository;
 use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * CategoryRepository
@@ -16,7 +17,7 @@ use ZIMZIM\ToolsBundle\Model\APYDataGrid\ApyDataGridRepositoryInterface;
  */
 abstract class ItemHomeRepository extends SortableRepository implements ApyDataGridRepositoryInterface
 {
-    public function getList(Entity $source)
+    public function getList(Entity $source, SecurityContext $securityContext)
     {
         $tableAlias = $source->getTableAlias();
         $source->manipulateQuery(
